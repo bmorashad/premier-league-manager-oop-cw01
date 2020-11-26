@@ -13,9 +13,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
 import domain.PremierLeagueManager;
-import domain.FootballClub;
-import domain.Match;
 import domain.Season;
+import domain.entity.FootballClub;
+import domain.entity.Match;
 import javax.inject.Singleton;
 
 @Singleton
