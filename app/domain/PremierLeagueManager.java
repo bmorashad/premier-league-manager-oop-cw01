@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import domain.entity.Match;
+import domain.entity.FootballClub;
 import domain.custom.exception.NoMoreClubsAllowed;
 
 public class PremierLeagueManager implements Serializable, LeagueManager{
