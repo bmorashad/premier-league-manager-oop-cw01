@@ -1,4 +1,5 @@
-package domain;
+package domain.entity;
+;
 import java.io.Serializable;
 
 public abstract class SportsClub implements Serializable{

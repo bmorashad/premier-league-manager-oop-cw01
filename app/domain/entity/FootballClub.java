@@ -1,4 +1,4 @@
-package domain;
+package domain.entity;
 public class FootballClub extends SportsClub implements Comparable<FootballClub> {
 	private static final long serialVersionUID = 6L;
 

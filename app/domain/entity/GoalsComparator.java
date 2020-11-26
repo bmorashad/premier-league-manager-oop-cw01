@@ -1,4 +1,4 @@
-package domain;
+package domain.entity;
 import java.util.Comparator;
 
 public class GoalsComparator implements Comparator<FootballClub> {

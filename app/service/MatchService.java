@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import service.dto.MatchDTO;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.Match;
+import domain.entity.Match;
 
 public class MatchService {
 	@Inject

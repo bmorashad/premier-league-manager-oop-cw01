@@ -16,9 +16,9 @@ import play.libs.Json;
 import service.FootballClubService;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.Match;
+import domain.entity.FootballClub;
+import domain.entity.Match;
 import domain.Season;
-import domain.FootballClub;
 
 public class FootballClubController extends Controller {
 	@Inject

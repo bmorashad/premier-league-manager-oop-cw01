@@ -1,4 +1,5 @@
-package domain;
+package domain.entity;
+;
 public class SchoolFootballClub extends FootballClub{
 	public static final int MAX_AGE = 18;
 

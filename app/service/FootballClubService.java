@@ -8,7 +8,7 @@ import java.util.List;
 
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.FootballClub;
+import domain.entity.FootballClub;
 
 public class FootballClubService {
 	@Inject
