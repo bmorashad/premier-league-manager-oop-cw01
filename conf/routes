@@ -3,9 +3,7 @@
 # ~~~~
 
 # An example controller showing a sample home page
-+nocsrf
 POST 	/clients/:id 									controllers.HomeController.index(request: Request, id: String)
-+nocsrf
 POST 	/api/match 								controllers.MatchController.createMatch(request: Request)
 GET 	/api/match 								controllers.MatchController.getAllMatches()
 GET 	/api/footballclub 						controllers.FootballClubController.getAllFootballClubs()
