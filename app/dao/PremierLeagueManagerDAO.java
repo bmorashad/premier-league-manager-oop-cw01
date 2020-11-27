@@ -103,7 +103,6 @@ public class PremierLeagueManagerDAO {
 			try {
 				sc = new Scanner(file);
 				while (sc.hasNext()) {
-					System.out.println("hah");
 					String[] update = sc.nextLine().split(":");
 					String clubName = update[1].split("=")[1];
 					removedClubs.add(clubName);
@@ -122,7 +121,7 @@ public class PremierLeagueManagerDAO {
 		String teamBName= matchDTO.getTeamB();
 		boolean isTeamADeleted = isClubDeleted(teamAName);
 		boolean isTeamBDeleted = isClubDeleted(teamBName);
-		boolean isMatchValid = isTeamADeleted || isTeamBDeleted;
+		boolean isMatchValid = !isTeamADeleted && !isTeamBDeleted;
 		FootballClub teamA = null;
 		FootballClub teamB = null;
 		if(isMatchValid) {
