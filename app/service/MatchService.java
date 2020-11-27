@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import service.dto.MatchDTO;
+import dto.MatchDTO;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
 import domain.entity.Match;
@@ -23,8 +23,9 @@ public class MatchService {
 			.map(match -> matchToMatchDTO(match)).collect(Collectors.toList());
 		return matches;
 	}
-	public boolean addMatch() {
-		return true;
+	public boolean addMatch(MatchDTO matchDTO) {
+		boolean isMatchAdded = plmDAO.addMatch(matchDTO);
+		return isMatchAdded;
 	}
 	private MatchDTO matchToMatchDTO(Match match) {
 		String teamA = match.getTeamA().getClubName();

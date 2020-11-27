@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import play.libs.Json;
 
 import service.FootballClubService;
+import utils.HttpJsonResponse;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
 import domain.entity.FootballClub;
@@ -25,8 +26,10 @@ public class FootballClubController extends Controller {
 	private FootballClubService footballService ;
 
    public Result getAllFootballClubs() {
-		List<FootballClub> footballClubs = footballService.getAllFootballClubs();
-		return ok(Json.toJson(footballClubs));
+        ObjectNode data = Json.newObject();
+		data.put("footballClubs",  Json.toJson(footballService.getAllFootballClubs()));
+		JsonNode response = HttpJsonResponse.createSuccessResponse(data);
+		return ok(response);
 
     }
 

@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
 import domain.Season;
+import utils.HttpJsonResponse;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,8 +29,10 @@ public class PremierLeagueController extends Controller {
 	}
 
     public Result getSeason() {
-		return ok(Json.toJson(premierLeagueService.getPremierLeagueSeason()));
-
+        ObjectNode data = Json.newObject();
+		data.put("season", premierLeagueService.getPremierLeagueSeason());
+		JsonNode response = HttpJsonResponse.createSuccessResponse(data);
+		return ok(response);
     }
 
 }
