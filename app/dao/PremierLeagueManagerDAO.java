@@ -141,6 +141,7 @@ public class PremierLeagueManagerDAO {
 				Match match = new Match(teamA, teamB, matchDTO.getTeamAGoals(), 
 					matchDTO.getTeamBGoals(), matchDTO.getDate());
 				plm.addMatch(match);
+				save(plm);
 				return true;
 			}
 		}
