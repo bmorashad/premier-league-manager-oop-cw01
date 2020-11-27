@@ -126,9 +126,11 @@ public class PremierLeagueManagerDAO {
 		FootballClub teamB = null;
 		if(isMatchValid) {
 			List<FootballClub> clubsInMatch = plm.getAllClubs().stream()
-				.filter(club -> club.getClubName() == teamAName || club.getClubName() == teamBName)
+				.filter(club -> club.getClubName().equals(teamAName) || club.getClubName().equals(teamBName))
 				.collect(Collectors.toList());
+			System.out.println(clubsInMatch.size());
 			for (FootballClub footballClub : clubsInMatch) {
+				System.out.println(footballClub.getClubName());
 				if(footballClub.getClubName().equals(teamAName)) {
 					teamA = footballClub;
 				} else {
