@@ -103,6 +103,7 @@ public class PremierLeagueManagerDAO {
 			try {
 				sc = new Scanner(file);
 				while (sc.hasNext()) {
+					System.out.println("hah");
 					String[] update = sc.nextLine().split(":");
 					String clubName = update[1].split("=")[1];
 					removedClubs.add(clubName);
