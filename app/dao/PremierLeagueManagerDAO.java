@@ -60,7 +60,6 @@ public class PremierLeagueManagerDAO {
 	public Optional<PremierLeagueManager> getPremierLeagueManagerBySeason(String season) {
 		String filePath = databaseDir + season;
 		File leagueData = new File(filePath);
-		System.out.println(leagueData.exists());
 
 		PremierLeagueManager plm = null;
 		if (leagueData.exists() && leagueData.isFile()) {
@@ -73,7 +72,6 @@ public class PremierLeagueManagerDAO {
 				ois.close(); 
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println(e.getMessage());
 			}
 		}
 		return Optional.ofNullable(plm);
@@ -128,9 +126,7 @@ public class PremierLeagueManagerDAO {
 			List<FootballClub> clubsInMatch = plm.getAllClubs().stream()
 				.filter(club -> club.getClubName().equals(teamAName) || club.getClubName().equals(teamBName))
 				.collect(Collectors.toList());
-			System.out.println(clubsInMatch.size());
 			for (FootballClub footballClub : clubsInMatch) {
-				System.out.println(footballClub.getClubName());
 				if(footballClub.getClubName().equals(teamAName)) {
 					teamA = footballClub;
 				} else {
