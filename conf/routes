@@ -4,7 +4,8 @@
 
 # An example controller showing a sample home page
 GET 	/api/match 								controllers.MatchController.getAllMatches()
-# POST 	/api/match 								controllers.MatchController.createMatch(request: Request)
+POST 	/:id 									controllers.HomeController.index(request: Request, String id)
+POST 	/api/match 								controllers.MatchController.createMatch(request: Request)
 GET 	/api/footballclub 						controllers.FootballClubController.getAllFootballClubs()
 GET 	/api/season 							controllers.PremierLeagueController.getSeason()
 GET 	/assets/html/professional 				controllers.Assets.at(path="/public", file="html/index.html")
