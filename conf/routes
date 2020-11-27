@@ -3,9 +3,11 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET 	/api/match 								controllers.MatchController.getAllMatches()
-POST 	/:id 									controllers.HomeController.index(request: Request, id: String)
++nocsrf
+POST 	/clients/:id 									controllers.HomeController.index(request: Request, id: String)
++nocsrf
 POST 	/api/match 								controllers.MatchController.createMatch(request: Request)
+GET 	/api/match 								controllers.MatchController.getAllMatches()
 GET 	/api/footballclub 						controllers.FootballClubController.getAllFootballClubs()
 GET 	/api/season 							controllers.PremierLeagueController.getSeason()
 GET 	/assets/html/professional 				controllers.Assets.at(path="/public", file="html/index.html")
