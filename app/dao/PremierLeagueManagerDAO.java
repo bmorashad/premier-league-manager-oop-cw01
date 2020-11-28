@@ -58,8 +58,8 @@ public class PremierLeagueManagerDAO {
 	}
 	public void syncUpdates(String type) {
 		String updateFile = type.toLowerCase() == "cli" ? cliUpdatesPath : guiUpdatesPath;
-		String[] models = {Match.class.getName().toUpperCase(), 
-			FootballClub.class.getName().toUpperCase()};
+		String[] models = {Match.class.getSimpleName().toUpperCase(), 
+			FootballClub.class.getSimpleName().toUpperCase()};
 		File file = new File(updateFile);
 		Scanner sc;
 		if(file.exists()) {
@@ -71,7 +71,7 @@ public class PremierLeagueManagerDAO {
 					if(update[0].equals(models[0])){
 						Match match = readMatchUpdate(update);
 						syncMatchUpdates(match, updateType);
-					} else if (update[1].equals(models[1])) {
+					} else if (update[0].equals(models[1])) {
 						FootballClub footballClub = readFootballClub(update);
 						syncFootballClubUpdates(footballClub, updateType);
 					}
@@ -88,9 +88,9 @@ public class PremierLeagueManagerDAO {
 	}
 	private Match readMatchUpdate(String[] update) {
 		String teamAName = update[2].split("=")[1];
-		FootballClub teamA = new FootballClub(teamAName, "C", "L");
+		FootballClub teamA = plm.getClubByName(teamAName);
 		String teamBName = update[3].split("=")[1];
-		FootballClub teamB = new FootballClub(teamBName, "C", "L");
+		FootballClub teamB = plm.getClubByName(teamBName);
 		int teamAGoals = Integer.parseInt(update[4].split("=")[1]);
 		int teamBGoals = Integer.parseInt(update[5].split("=")[1]);
 		LocalDate date = LocalDate.parse(update[6].split("=")[1]);

@@ -426,6 +426,7 @@ public class StartLeagueManagerMenu {
 		}
 	}
 	private static void cleanUp() {
+		UpdateLogger.clearAllLogs();
 		sc.close();
 	}
 	public static void main(String[] args) {

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import dto.MatchDTO;
+import utils.UpdateLogger;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
 import domain.model.Match;
@@ -15,23 +16,29 @@ import domain.model.FootballClub;
 public class MatchService {
 	private PremierLeagueManagerDAO plmDAO;
 	private PremierLeagueManager plm;
+	private UpdateLogger ul;
 
 	public MatchService() {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
 		plm = plmDAO.getPremierLeagueManagerByActiveSeason();
+		ul = new UpdateLogger("gui");
 	}
 
 	public List<MatchDTO> getAllMatches() {
+		plmDAO.syncUpdates("cli");
 		List<MatchDTO> matches = new ArrayList<>();
 		matches = plm.getMatches().stream()
 			.map(match -> matchToMatchDTO(match)).collect(Collectors.toList());
 		return matches;
 	}
 	public boolean addMatch(MatchDTO matchDTO) {
+		plmDAO.syncUpdates("cli");
 		Match match = matchFromMatchDTO(matchDTO).orElse(null);
 		if(match == null) {
 			return false;
 		}
+		System.out.println(match.getTeamAGoals());
+		ul.logMatchUpdate(match, "CREATE");
 		return true;
 	}
 	private MatchDTO matchToMatchDTO(Match match) {

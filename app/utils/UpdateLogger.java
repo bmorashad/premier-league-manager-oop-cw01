@@ -29,7 +29,7 @@ public class UpdateLogger {
 		FileOperation fo = new FileOperation(updatesPath);
 		fo.write("");
 	}
-	public void clearAllLogs() {
+	public static void clearAllLogs() {
 		FileOperation fo = new FileOperation(Configuration.cliUpdatePath);
 		fo.write("");
 		fo.setPath(Configuration.guiUpdatesPath);
@@ -42,7 +42,7 @@ public class UpdateLogger {
 	}
 
 	public void logMatchUpdate(Match match, String updateType) {
-		String model = Match.class.getName().toUpperCase();
+		String model = Match.class.getSimpleName().toUpperCase();
 		String pathToLog = updatesPath;
 		StringBuilder sb = new StringBuilder();
 		createFile(pathToLog);
@@ -57,13 +57,13 @@ public class UpdateLogger {
 			.append(teamA).append(":").append("teamB=")
 			.append(teamB).append(":").append("teamAGoals=")
 			.append(teamAGoals).append(":").append("teamBGoals=")
-			.append(teamBGoals).append(":").append("date")
+			.append(teamBGoals).append(":").append("date=")
 			.append(date).append(":");
 		sb.append("\n");
 		fo.append(sb.toString());
 	} 
 	public void logFootballClubUpdate(FootballClub footballClub, String updateType) {
-		String model = FootballClub.class.getName().toUpperCase();
+		String model = FootballClub.class.getSimpleName().toUpperCase();
 		createFile(updatesPath);
 		StringBuilder sb = new StringBuilder();
 		FileOperation fo = new FileOperation(updatesPath);
@@ -73,7 +73,7 @@ public class UpdateLogger {
 			.append("country=").append(footballClub.getCountry()).append(":")
 			.append("location=").append(footballClub.getLocation()).append(":")
 			.append("\n");
-
+		System.out.println(sb.toString());
 		fo.append(sb.toString());
 	} 
 	private boolean createFile(String path) {
