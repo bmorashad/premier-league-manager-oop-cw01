@@ -1,6 +1,5 @@
 package service;
 
-import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +13,11 @@ import domain.model.Match;
 import domain.model.FootballClub;
 
 public class MatchService {
-	private PremierLeagueManagerDAO plmDAO = PremierLeagueManagerDAO.getInstance();
+	private PremierLeagueManagerDAO plmDAO;
 	private PremierLeagueManager plm;
 
 	public MatchService() {
+		plmDAO = PremierLeagueManagerDAO.getInstance();
 		plm = plmDAO.getPremierLeagueManager();
 	}
 

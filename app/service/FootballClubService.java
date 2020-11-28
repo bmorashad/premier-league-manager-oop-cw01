@@ -9,8 +9,10 @@ import domain.PremierLeagueManager;
 import domain.model.FootballClub;
 
 public class FootballClubService {
-	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();
-
+	private PremierLeagueManagerDAO plmDAO;
+	public FootballClubService() {
+		plmDAO = PremierLeagueManagerDAO.getInstance();
+	}
 	public List<FootballClub> getAllFootballClubs() {
 		List <FootballClub> footballClubs = new ArrayList<>();
 		footballClubs = plmDAO.getPremierLeagueManager().getAllClubs();
