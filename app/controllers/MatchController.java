@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import utils.HttpJsonResponse;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.Season;
+import domain.model.Season;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -38,22 +38,13 @@ public class MatchController extends Controller {
     }
 	public Result createMatch(Http.Request req) {
 		ObjectNode data = Json.newObject();
-		JsonNode reqBody = req.body().asJson();
-		String teamA = reqBody.get("teamA").asText();
-		String teamB = reqBody.get("teamB").asText();
-		int teamAGoals = Integer.parseInt(reqBody.get("teamAGoals").asText());
-		int teamBGoals = Integer.parseInt(reqBody.get("teamBGoals").asText());
-		LocalDate date = LocalDate.parse(reqBody.get("date").asText());
-
-		MatchDTO matchDTO = new MatchDTO(teamA, teamB, teamAGoals, teamBGoals, date);
+		MatchDTO matchDTO = req.body().parseJson(MatchDTO.class);
 		boolean isMatchAdded = matchService.addMatch(matchDTO);
 		if(isMatchAdded) {
-			JsonNode match = Json.toJson(matchDTO);
-			data.put("match", match);
-			JsonNode response = HttpJsonResponse.createSuccessResponse(data);
+			JsonNode response = HttpJsonResponse.createSuccessResponse(matchDTO);
 			return ok(response);
 		} else {
-			data.put("errorMessage", "Give clubs no longer exist in the league");
+			data.put("errorMessage", "Given club(s) has been removed or doesn't exist in the league");
 			JsonNode response = HttpJsonResponse.createErrorResponse(data);
 			return ok(response);
 		}

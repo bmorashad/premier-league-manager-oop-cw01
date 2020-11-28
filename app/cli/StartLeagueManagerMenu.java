@@ -9,8 +9,8 @@ import java.util.Scanner;
 import dao.PremierLeagueManagerDAO;
 import cli.custom.exception.NoMoreAttemptsLeft;
 import domain.*;
-import domain.model.*;
 import domain.model.FootballClub;
+import domain.model.Season;
 import domain.model.Match;
 import domain.custom.exception.*;
 import domain.custom.exception.SeasonFormatException;
@@ -19,8 +19,13 @@ import utils.Regex;
 public class StartLeagueManagerMenu {
 	private static final int MAX_USER_INPUT_ATTEMPTS = 2;
 	private static PremierLeagueManager plm;
-	private static Scanner sc = new Scanner(System.in);
+	private static PremierLeagueManagerDAO plmDAO;
+	private static Scanner sc;
 
+	static {
+		sc = new Scanner(System.in);
+		plmDAO = PremierLeagueManagerDAO.getInstance();
+	}
 	private static boolean isOnlyAlphabet(String str) {
 		return Regex.isMatch("^[aA-zZ ]+$", str);
 	}
@@ -36,6 +41,7 @@ public class StartLeagueManagerMenu {
 		isSeasonValid = isYearDifferenceValid && secondYear <= (LocalDate.now().getYear() + 1);
 		return isSeasonValid;
 	}
+
     private static boolean confirm(String message) {
         System.out.println(message);
         String isConfirmed = sc.nextLine();
@@ -62,23 +68,6 @@ public class StartLeagueManagerMenu {
 		}
 		System.out.println("---Available Clubs In League---");
 		System.out.println(availableClubs);
-	}
-	public static PremierLeagueManager getPremierLeague() throws InputMismatchException {
-		System.out.println("Enter Premier League Season(YYYY-YYYY): ");
-		PremierLeagueManager plm;
-		try {
-			Season season = Season.parse(sc.nextLine());
-			if (isSeasonValid(season)) {
-				 plm = PremierLeagueManagerDAO.getPremierLeagueManagerBySeason(season).orElse(new PremierLeagueManager(season));
-				 return plm;
-			}
-			throw new InputMismatchException("Invalid season");
-		} catch (SeasonFormatException e) {
-			throw e;
-		}
-	}
-	public static void logActiveSeason(String season) {
-		PremierLeagueManagerDAO.logActiveSeason(season);
 	}
 	public static void displayWelcomeMessage() {
 		System.out.println("===============/|\\====================="); 
@@ -240,6 +229,31 @@ public class StartLeagueManagerMenu {
 
 	}
 
+	private static Season getSeason(String label) throws NoMoreAttemptsLeft {
+		int attempts = 0;
+		Season season = null;
+		while(attempts < MAX_USER_INPUT_ATTEMPTS) {
+			try {
+				System.out.println(label);
+				season = Season.parse(sc.nextLine());
+				if (isSeasonValid(season)) {
+					attempts = MAX_USER_INPUT_ATTEMPTS;
+				} else {
+					System.out.println("Invalid season, try again..");
+				}
+			} catch(SeasonFormatException e) {
+				System.out.println(e.getMessage());
+				attempts += 1;
+				if(attempts == MAX_USER_INPUT_ATTEMPTS) {
+					throw new NoMoreAttemptsLeft("Sorry no more attempts left");
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new NoMoreAttemptsLeft("Sorry no more attempts left");
+			}
+		}
+		return season;
+	}
 	private static int getGoals(String label) throws NoMoreAttemptsLeft {
 		int attempts = 0;
 		int goals = 0;
@@ -341,26 +355,16 @@ public class StartLeagueManagerMenu {
 		return club;
 	}
 	public static void loadPremierLeague() {
-		int attempts = 0;
-		while(attempts < MAX_USER_INPUT_ATTEMPTS) {
-			try {
-				plm = getPremierLeague();
-				logActiveSeason(plm.SEASON.toString());
-				attempts = MAX_USER_INPUT_ATTEMPTS;
-			} catch(InputMismatchException e) {
-				System.out.println("Invalid season, try again...");
-				attempts += 1;
-				if(attempts == MAX_USER_INPUT_ATTEMPTS) {
-					System.out.println("Sorry no more attempts left :(. Restart the program to try again.");
-				}
-			} catch(SeasonFormatException e) {
-				System.out.println(e.getMessage());
-			}
+		try {
+			Season season = getSeason("Enter Premier League Season(YYYY-YYYY): ");
+			plmDAO.initPremierLeagueManager(season);
+			plm = plmDAO.getPremierLeagueManager();
+		} catch(NoMoreAttemptsLeft e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	public static void savePremierLeague() {
-		plm = PremierLeagueManagerDAO.syncAddedMatch(plm);
-		PremierLeagueManagerDAO.save(plm);
+		plmDAO.save(plm);
 	}
 	public static void menu() {
 		if(plm != null) {
