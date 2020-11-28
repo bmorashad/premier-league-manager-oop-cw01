@@ -1,4 +1,4 @@
-name := """example"""
+name := """premier-league"""
 organization := "com.rashad"
 
 version := "1.0-SNAPSHOT"
