@@ -15,7 +15,8 @@ public class FootballClubService {
 	}
 	public List<FootballClub> getAllFootballClubs() {
 		List <FootballClub> footballClubs = new ArrayList<>();
-		footballClubs = plmDAO.getPremierLeagueManager().getAllClubs();
+		footballClubs = plmDAO.getPremierLeagueManagerByActiveSeason()
+			.getAllClubs();
 		return footballClubs;
 	}
 

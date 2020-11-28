@@ -1,12 +1,25 @@
 package dao;
+import utils.FileOperation;
 import utils.ObjectOperation;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
 import domain.PremierLeagueManager;
 import domain.model.Season;
+import domain.model.FootballClub;
+import domain.model.Match;
+import conf.Configuration;
 
 public class PremierLeagueManagerDAO {
 	private static volatile PremierLeagueManagerDAO plmDAO;
 	private static PremierLeagueManager plm;
-	private static final String databaseDir = "../.data/";
+	private static final String databaseDir = Configuration.dataPath;
+	private static final String cliUpdatesPath = Configuration.cliUpdatePath;
+	private static final String guiUpdatesPath = Configuration.guiUpdatesPath;
+	private static final String activeSeasonPath = Configuration.activeSeasonPath;
 
 	private PremierLeagueManagerDAO() { }
 
@@ -17,6 +30,11 @@ public class PremierLeagueManagerDAO {
 		if(plm == null) {
 			plm = new PremierLeagueManager(season);
 		}
+	}
+	public PremierLeagueManager getPremierLeagueManagerByActiveSeason(){
+		String activeSeason = getActiveSeason();
+		initPremierLeagueManager(Season.parse(activeSeason));
+		return plm;
 	}
 	public PremierLeagueManager getPremierLeagueManager(){
 		return plm;
@@ -37,5 +55,86 @@ public class PremierLeagueManagerDAO {
 		String filePath =  databaseDir + plm.SEASON.toString();
 		ObjectOperation oo = new ObjectOperation();
 		oo.serialize(filePath, plm);
+	}
+	public void syncUpdates(String type) {
+		String updateFile = type.toLowerCase() == "cli" ? cliUpdatesPath : guiUpdatesPath;
+		String[] models = {Match.class.getName().toUpperCase(), 
+			FootballClub.class.getName().toUpperCase()};
+		File file = new File(updateFile);
+		Scanner sc;
+		if(file.exists()) {
+			try {
+				sc = new Scanner(file);
+				while (sc.hasNext()) {
+					String[] update = sc.nextLine().split(":");
+					String updateType = update[1];
+					if(update[0].equals(models[0])){
+						Match match = readMatchUpdate(update);
+						syncMatchUpdates(match, updateType);
+					} else if (update[1].equals(models[1])) {
+						FootballClub footballClub = readFootballClub(update);
+						syncFootballClubUpdates(footballClub, updateType);
+					}
+				}
+				FileOperation fo = new FileOperation(updateFile);
+				fo.write("");
+				sc.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	private Match readMatchUpdate(String[] update) {
+		String teamAName = update[2].split("=")[1];
+		FootballClub teamA = new FootballClub(teamAName, "C", "L");
+		String teamBName = update[3].split("=")[1];
+		FootballClub teamB = new FootballClub(teamBName, "C", "L");
+		int teamAGoals = Integer.parseInt(update[4].split("=")[1]);
+		int teamBGoals = Integer.parseInt(update[5].split("=")[1]);
+		LocalDate date = LocalDate.parse(update[6].split("=")[1]);
+		Match match = new Match(teamA, teamB, teamAGoals, teamBGoals, date);
+		return match;
+
+	}
+	private FootballClub readFootballClub(String[] update) {
+		String clubName = update[2].split("=")[1];
+		String location = update[3].split("=")[1];
+		String country = update[4].split("=")[1];
+		FootballClub footballClub = new FootballClub(clubName, country, location);
+		return footballClub;
+
+	}
+	private void syncFootballClubUpdates(FootballClub footballClub, String updateType) {
+		if(updateType.equals("CREATE")) {
+			plm.addFootballClub(footballClub);
+		} else if(updateType.equals("DELETE")) {
+			plm.removeFootballClub(footballClub.getClubName());
+		}
+	}
+
+	private void syncMatchUpdates(Match match, String updateType) {
+		if(updateType.equals("CREATE")) {
+			plm.addMatch(match);
+		}
+	}
+
+	private String getActiveSeason() {
+		File file = new File(activeSeasonPath);
+		Scanner sc;
+		String activeSeason = "";
+		if(file.exists()) {
+			try {
+				sc = new Scanner(file);
+				activeSeason= sc.nextLine();
+				sc.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return activeSeason;
 	}
 }

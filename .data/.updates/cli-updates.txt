@@ -1,0 +1,1 @@
+DOMAIN.MODEL.FOOTBALLCLUB:CREATE:clubName=D:country=D:location=D:

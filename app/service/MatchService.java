@@ -18,11 +18,10 @@ public class MatchService {
 
 	public MatchService() {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
-		plm = plmDAO.getPremierLeagueManager();
+		plm = plmDAO.getPremierLeagueManagerByActiveSeason();
 	}
 
 	public List<MatchDTO> getAllMatches() {
-		PremierLeagueManager plm = plmDAO.getPremierLeagueManager();
 		List<MatchDTO> matches = new ArrayList<>();
 		matches = plm.getMatches().stream()
 			.map(match -> matchToMatchDTO(match)).collect(Collectors.toList());

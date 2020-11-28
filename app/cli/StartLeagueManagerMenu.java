@@ -15,16 +15,19 @@ import domain.model.Match;
 import domain.custom.exception.*;
 import domain.custom.exception.SeasonFormatException;
 import utils.Regex;
+import utils.UpdateLogger;
 
 public class StartLeagueManagerMenu {
 	private static final int MAX_USER_INPUT_ATTEMPTS = 2;
 	private static PremierLeagueManager plm;
 	private static PremierLeagueManagerDAO plmDAO;
 	private static Scanner sc;
+	private static UpdateLogger ul;
 
 	static {
 		sc = new Scanner(System.in);
 		plmDAO = PremierLeagueManagerDAO.getInstance();
+		ul = new UpdateLogger("CLI");
 	}
 	private static boolean isOnlyAlphabet(String str) {
 		return Regex.isMatch("^[aA-zZ ]+$", str);
@@ -95,6 +98,7 @@ public class StartLeagueManagerMenu {
 				boolean added = plm.addFootballClub(footballClub);
 				if(added) {
 					System.out.println("Successfully added the club to Premier League");	
+					ul.logFootballClubUpdate(footballClub, "CREATE");
 					return;
 				} 
 				System.out.println("Club already exist");
@@ -119,6 +123,7 @@ public class StartLeagueManagerMenu {
 				return;
 			}
 			System.out.println(removedClub.getClubName() + " club successfully removed from Premier League!!");
+			ul.logFootballClubUpdate(removedClub, "DELETE");
 			return;
 		}
 		System.out.println("Aborted!");
@@ -223,6 +228,7 @@ public class StartLeagueManagerMenu {
 			Match match = new Match(teamA, teamB, teamAGoals, teamBGoals,date);
 			plm.addMatch(match);
 			System.out.println("Match added successfully");
+			logMatchUpdate(match, "CREATE");
 		} catch(NoMoreAttemptsLeft e) {
 			System.out.println(e.getMessage());
 		}
@@ -360,6 +366,7 @@ public class StartLeagueManagerMenu {
 			Season season = getSeason("Enter Premier League Season(YYYY-YYYY): ");
 			plmDAO.initPremierLeagueManager(season);
 			plm = plmDAO.getPremierLeagueManager();
+			UpdateLogger.logActiveSeason(season.toString());
 		} catch(NoMoreAttemptsLeft e) {
 			System.out.println(e.getMessage());
 		}
@@ -367,12 +374,19 @@ public class StartLeagueManagerMenu {
 	public static void savePremierLeague() {
 		plmDAO.save(plm);
 	}
+	private static void logMatchUpdate(Match match, String updateType) {
+		ul.logMatchUpdate(match, updateType);
+	}
+	private static void logFootballClubUpdate(FootballClub footballClub, String updateType) {
+		ul.logFootballClubUpdate(footballClub, updateType);
+	}
 	public static void menu() {
 		if(plm != null) {
 			displayWelcomeMessage();
 			boolean exit = false;
 			onStart();
 			while(!exit) {
+				plmDAO.syncUpdates("gui");
 				displayMenuInstructions();
 				System.out.print("\nEnter an option: ");
 				String option = sc.nextLine();
