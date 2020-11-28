@@ -1,14 +1,13 @@
 package utils;
 
 import java.io.File;
-import domain.LeagueType;
 import domain.model.Match;
 import domain.model.FootballClub;
-import conf.Configuration;
+import conf.DatabaseConfiguration;
 
 public class UpdateLogger {
 	private String updatesPath; 
-	private static final String activeSeason = Configuration.dataPath + "active-season.txt";
+	private static final String activeSeason = DatabaseConfiguration.activeSeasonPath;
 
 	public UpdateLogger(String type) {
 		setUpdatesPath(type);
@@ -16,13 +15,13 @@ public class UpdateLogger {
 	private void setUpdatesPath(String type){
 		switch(type.toLowerCase()) {
 			case "cli":
-				updatesPath = Configuration.cliUpdatePath;
+				updatesPath = DatabaseConfiguration.cliUpdatePath;
 				break;
 			case "gui":
-				updatesPath = Configuration.guiUpdatesPath;
+				updatesPath = DatabaseConfiguration.guiUpdatesPath;
 				break;
 			default:
-				updatesPath = Configuration.cliUpdatePath;
+				updatesPath = DatabaseConfiguration.cliUpdatePath;
 		}
 	}
 	public void clearLogs() {
@@ -30,9 +29,9 @@ public class UpdateLogger {
 		fo.write("");
 	}
 	public static void clearAllLogs() {
-		FileOperation fo = new FileOperation(Configuration.cliUpdatePath);
+		FileOperation fo = new FileOperation(DatabaseConfiguration.cliUpdatePath);
 		fo.write("");
-		fo.setPath(Configuration.guiUpdatesPath);
+		fo.setPath(DatabaseConfiguration.guiUpdatesPath);
 		fo.write("");
 	}
 	public static void logActiveSeason(String season) {
