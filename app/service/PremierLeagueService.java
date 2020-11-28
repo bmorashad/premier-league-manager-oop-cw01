@@ -1,7 +1,5 @@
 package service;
 
-import javax.inject.Inject;
-
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
 

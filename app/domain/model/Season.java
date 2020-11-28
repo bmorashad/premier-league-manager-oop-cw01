@@ -1,7 +1,5 @@
-package domain;
+package domain.model;
 import java.io.Serializable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import utils.Regex;
 import domain.custom.exception.SeasonFormatException;
 

@@ -1,14 +1,12 @@
 package service;
 
-import javax.inject.Inject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.entity.FootballClub;
+import domain.model.FootballClub;
 
 public class FootballClubService {
 	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();

@@ -1,14 +1,10 @@
 package domain;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import domain.entity.Match;
-import domain.entity.FootballClub;
+import domain.model.Match;
+import domain.model.Season;
+import domain.model.FootballClub;
 import domain.custom.exception.NoMoreClubsAllowed;
 
 public class PremierLeagueManager implements Serializable, LeagueManager{
@@ -70,7 +66,7 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 		int teamAGoals = match.getTeamAGoals();
 		int teamBGoals = match.getTeamBGoals();
 		teamA.addGoals(teamAGoals, teamBGoals);
-		teamB.addGoals(teamBGoals, teamBGoals);
+		teamB.addGoals(teamBGoals, teamAGoals);
 		if(teamAGoals != teamBGoals) {
 			match.getWinningTeam().addWinningMatch();
 			match.getDefeatedTeam().addDefeatedMatch();

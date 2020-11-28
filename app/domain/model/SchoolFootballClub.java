@@ -1,5 +1,6 @@
-package domain.entity;
+package domain.model;
 public class SchoolFootballClub extends FootballClub{
+	static final long serialVersionUID = 55L;
 	public static final int MAX_AGE = 18;
 
 	private String schoolName;

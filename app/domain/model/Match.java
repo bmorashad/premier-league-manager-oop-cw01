@@ -1,9 +1,10 @@
-package domain.entity;
-
+package domain.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Match implements Serializable{
+	static final long serialVersionUID = 66L;
+
 	private FootballClub teamA;
 	private FootballClub teamB;
 	private int teamAGoals;

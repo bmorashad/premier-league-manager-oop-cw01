@@ -6,20 +6,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.libs.Json;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import play.libs.Json;
 
 import service.FootballClubService;
 import utils.HttpJsonResponse;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.entity.FootballClub;
-import domain.entity.Match;
-import domain.Season;
+import domain.model.FootballClub;
+import domain.model.Match;
+import domain.model.Season;
 
 public class FootballClubController extends Controller {
 	private FootballClubService footballService = new FootballClubService();

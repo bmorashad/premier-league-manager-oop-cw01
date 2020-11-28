@@ -1,7 +1,8 @@
-package domain.entity;
+package domain.model;
 import java.io.Serializable;
 
 public abstract class SportsClub implements Serializable{
+	static final long serialVersionUID = 88L;
 	String clubName;
 	String country;
 	String location;

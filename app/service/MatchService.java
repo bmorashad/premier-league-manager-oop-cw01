@@ -1,7 +1,5 @@
 package service;
 
-import javax.inject.Inject;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.stream.Collectors;
 import dto.MatchDTO;
 import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
-import domain.entity.Match;
+import domain.model.Match;
 
 public class MatchService {
 	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();
