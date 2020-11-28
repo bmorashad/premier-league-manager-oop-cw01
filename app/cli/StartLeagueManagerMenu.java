@@ -119,6 +119,7 @@ public class StartLeagueManagerMenu {
 				return;
 			}
 			System.out.println(removedClub.getClubName() + " club successfully removed from Premier League!!");
+			return;
 		}
 		System.out.println("Aborted!");
 	}
