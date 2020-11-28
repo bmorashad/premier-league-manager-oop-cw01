@@ -38,7 +38,7 @@ public class MatchController extends Controller {
     }
 	public Result createMatch(Http.Request req) {
 		ObjectNode data = Json.newObject();
-		MatchDTO matchDTO = req.body().parseJson(MatchDTO.class);
+		MatchDTO matchDTO = Json.fromJson(req.body().asJson(), MatchDTO.class);
 		boolean isMatchAdded = matchService.addMatch(matchDTO);
 		if(isMatchAdded) {
 			JsonNode response = HttpJsonResponse.createSuccessResponse(matchDTO);
