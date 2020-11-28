@@ -13,8 +13,7 @@ import domain.PremierLeagueManager;
 import domain.entity.Match;
 
 public class MatchService {
-	@Inject
-	private PremierLeagueManagerDAO plmDAO;
+	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();
 
 	public List<MatchDTO> getAllMatches() {
 		PremierLeagueManager plm = plmDAO.getPremierLeagueManager();

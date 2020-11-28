@@ -22,8 +22,7 @@ import domain.entity.Match;
 import domain.Season;
 
 public class FootballClubController extends Controller {
-	@Inject
-	private FootballClubService footballService ;
+	private FootballClubService footballService = new FootballClubService();
 
    public Result getAllFootballClubs() {
         ObjectNode data = Json.newObject();

@@ -21,12 +21,12 @@ import play.libs.Json;
 import service.PremierLeagueService;
 
 public class PremierLeagueController extends Controller {
-	private PremierLeagueService premierLeagueService;
+	private PremierLeagueService premierLeagueService = new PremierLeagueService();
 
-	@Inject
-	public PremierLeagueController(PremierLeagueService premierLeagueService) {
-		this.premierLeagueService = premierLeagueService;
-	}
+	// @Inject
+	// public PremierLeagueController(PremierLeagueService premierLeagueService) {
+		// this.premierLeagueService = premierLeagueService;
+	// }
 
     public Result getSeason() {
         ObjectNode data = Json.newObject();

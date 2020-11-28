@@ -22,12 +22,12 @@ import dto.MatchDTO;
 import service.MatchService;
 
 public class MatchController extends Controller {
-	private MatchService matchService;
+	private MatchService matchService = new MatchService();
 
-	@Inject
-	public MatchController(MatchService matchService) {
-		this.matchService = matchService;
-	}
+	// @Inject
+	// public MatchController(MatchService matchService) {
+		// this.matchService = matchService;
+	// }
 
     public Result getAllMatches() {
 		ObjectNode data = Json.newObject();

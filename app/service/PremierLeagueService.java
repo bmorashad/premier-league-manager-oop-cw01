@@ -6,8 +6,7 @@ import dao.PremierLeagueManagerDAO;
 import domain.PremierLeagueManager;
 
 public class PremierLeagueService {
-	@Inject
-	private PremierLeagueManagerDAO plmDAO;
+	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();
 
 	public String getPremierLeagueSeason() {
 		return plmDAO.getPremierLeagueManager().SEASON.toString();

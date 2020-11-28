@@ -11,8 +11,7 @@ import domain.PremierLeagueManager;
 import domain.entity.FootballClub;
 
 public class FootballClubService {
-	@Inject
-	PremierLeagueManagerDAO plmDAO;
+	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();
 
 	public List<FootballClub> getAllFootballClubs() {
 		List <FootballClub> footballClubs = new ArrayList<>();

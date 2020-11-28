@@ -1,10 +1,10 @@
-package module;
+// package module;
 
-import com.google.inject.AbstractModule;
+// import com.google.inject.AbstractModule;
 
-public class DaoModule extends AbstractModule {
-	@Override
-	public void configure() {
-		// bindings
-	}
-}
+// public class DaoModule extends AbstractModule {
+	// @Override
+	// public void configure() {
+		// // bindings
+	// }
+// }

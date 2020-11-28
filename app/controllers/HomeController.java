@@ -14,8 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class HomeController extends Controller {
-	@Inject
-	private PremierLeagueManagerDAO plmDAO;
+	private PremierLeagueManagerDAO plmDAO = new PremierLeagueManagerDAO();
 	class Person {
 		String name;
 		public Person(String name) {
