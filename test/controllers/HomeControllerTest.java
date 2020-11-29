@@ -2,7 +2,7 @@ package controllers;
 
 import org.junit.Test;
 import play.Application;
-import play.inject.guice.GuiceApplicationBuilder;
+// import play.inject.guice.GuiceApplicationBuilder;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.WithApplication;

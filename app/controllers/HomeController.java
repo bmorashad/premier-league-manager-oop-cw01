@@ -11,7 +11,7 @@ import play.mvc.Result;
 
 import java.util.List;
 
-import javax.inject.Inject;
+// import javax.inject.Inject;
 
 public class HomeController extends Controller {
 	private PremierLeagueManagerDAO plmDAO = PremierLeagueManagerDAO.getInstance();
