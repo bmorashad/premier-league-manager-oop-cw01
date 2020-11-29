@@ -37,15 +37,13 @@ public class MatchController extends Controller {
 
     }
 	public Result createMatch(Http.Request req) {
-		ObjectNode data = Json.newObject();
 		MatchDTO matchDTO = Json.fromJson(req.body().asJson(), MatchDTO.class);
 		boolean isMatchAdded = matchService.addMatch(matchDTO);
 		if(isMatchAdded) {
 			JsonNode response = HttpJsonResponse.createSuccessResponse(matchDTO);
 			return ok(response);
 		} else {
-			data.put("errorMessage", "Given club(s) has been removed or doesn't exist in the league");
-			JsonNode response = HttpJsonResponse.createErrorResponse(data);
+			JsonNode response = HttpJsonResponse.createErrorResponse("Given club(s) has been removed or doesn't exist in the league");
 			return ok(response);
 		}
 	}
