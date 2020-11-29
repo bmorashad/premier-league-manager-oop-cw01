@@ -11,15 +11,15 @@ import domain.PremierLeagueManager;
 import domain.model.Season;
 import domain.model.FootballClub;
 import domain.model.Match;
-import conf.DatabaseConfiguration;
+import conf.PathConfiguration;
 
 public class PremierLeagueManagerDAO {
 	private static volatile PremierLeagueManagerDAO plmDAO;
 	private static PremierLeagueManager plm;
-	private static final String databaseDir = DatabaseConfiguration.dataPath;
-	private static final String cliUpdatesPath = DatabaseConfiguration.cliUpdatePath;
-	private static final String guiUpdatesPath = DatabaseConfiguration.guiUpdatesPath;
-	private static final String activeSeasonPath = DatabaseConfiguration.activeSeasonPath;
+	private static final String databaseDir = PathConfiguration.dataPath;
+	private static final String cliUpdatesPath = PathConfiguration.cliUpdatePath;
+	private static final String guiUpdatesPath = PathConfiguration.guiUpdatesPath;
+	private static final String activeSeasonPath = PathConfiguration.activeSeasonPath;
 
 	private PremierLeagueManagerDAO() { }
 
