@@ -215,6 +215,7 @@ public class StartLeagueManagerMenu {
 	}
 
 	public static void addMatch(){
+		listAvailableClubs();
 		try {
 			FootballClub teamA = getAvailableClub("Enter Home team: ");
 			FootballClub teamB  = getAvailableClub("Enter Away team: ");
