@@ -1,7 +1,7 @@
 logs
 target
 .java-version
-app/ui/
+ui/
 /.idea
 /.g8
 /.idea_modules
