@@ -98,7 +98,7 @@ public class StartLeagueManagerMenu {
 				boolean added = plm.addFootballClub(footballClub);
 				if(added) {
 					System.out.println("Successfully added the club to Premier League");	
-					ul.logFootballClubUpdate(footballClub, "CREATE");
+					logFootballClubUpdate(footballClub, "CREATE");
 					return;
 				} 
 				System.out.println("Club already exist");
@@ -123,7 +123,7 @@ public class StartLeagueManagerMenu {
 				return;
 			}
 			System.out.println(removedClub.getClubName() + " club successfully removed from Premier League!!");
-			ul.logFootballClubUpdate(removedClub, "DELETE");
+			logFootballClubUpdate(removedClub, "DELETE");
 			return;
 		}
 		System.out.println("Aborted!");
@@ -372,6 +372,7 @@ public class StartLeagueManagerMenu {
 		}
 	}
 	public static void savePremierLeague() {
+		plmDAO.syncUpdates("gui");
 		plmDAO.save(plm);
 	}
 	private static void logMatchUpdate(Match match, String updateType) {
