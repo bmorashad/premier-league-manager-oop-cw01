@@ -6,7 +6,7 @@
 POST 	/clients/:id 							controllers.HomeController.index(request: Request, id: String)
 POST 	/api/match 								controllers.MatchController.createMatch(request: Request)
 GET 	/api/match 								controllers.MatchController.getAllMatches()
-GET 	/api/footballclub 						controllers.FootballClubController.getAllFootballClubs()
+GET 	/api/football-club 						controllers.FootballClubController.getAllFootballClubs()
 GET 	/api/season 							controllers.PremierLeagueController.getSeason()
 
 # serving frontend
