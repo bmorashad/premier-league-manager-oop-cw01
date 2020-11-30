@@ -10,6 +10,6 @@ public class PremierLeagueService {
 		plmDAO.getPremierLeagueManagerByActiveSeason();
 	}
 	public String getPremierLeagueSeason() {
-		return plmDAO.getPremierLeagueSeason().SEASON.toString();
+		return plmDAO.getPremierLeagueManager().SEASON.toString();
 	}
 }
