@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import utils.HttpJsonResponse;
-import dao.PremierLeagueManagerDAO;
-import domain.PremierLeagueManager;
 import domain.model.Season;
 import play.mvc.Controller;
 import play.mvc.Http;

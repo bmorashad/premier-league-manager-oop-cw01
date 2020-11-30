@@ -9,25 +9,23 @@ import java.util.stream.Collectors;
 import dto.MatchDTO;
 import utils.UpdateLogger;
 import dao.PremierLeagueManagerDAO;
-import domain.PremierLeagueManager;
 import domain.model.Match;
 import domain.model.FootballClub;
 
 public class MatchService {
 	private PremierLeagueManagerDAO plmDAO;
-	private PremierLeagueManager plm;
 	private UpdateLogger ul;
 
 	public MatchService() {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
-		plm = plmDAO.getPremierLeagueManagerByActiveSeason();
+		plmDAO.getPremierLeagueManagerByActiveSeason();
 		ul = new UpdateLogger("gui");
 	}
 
 	public List<MatchDTO> getAllMatches() {
 		plmDAO.syncUpdates("cli");
 		List<MatchDTO> matches = new ArrayList<>();
-		matches = plm.getMatches().stream()
+		matches = plmDAO.getPremierLeagueManager().getMatches().stream()
 			.map(match -> matchToMatchDTO(match)).collect(Collectors.toList());
 		return matches;
 	}
@@ -37,7 +35,6 @@ public class MatchService {
 		if(match == null) {
 			return false;
 		}
-		System.out.println(match.getTeamAGoals());
 		ul.logMatchUpdate(match, "CREATE");
 		return true;
 	}
@@ -55,7 +52,7 @@ public class MatchService {
 		Match match = null;
 		FootballClub teamA = null;
 		FootballClub teamB = null;
-		List<FootballClub> clubsInMatch = plm.getAllClubs().stream()
+		List<FootballClub> clubsInMatch = plmDAO.getPremierLeagueManager().getAllClubs().stream()
 			.filter(club -> club.getClubName().equals(teamAName) || club.getClubName().equals(teamBName))
 			.collect(Collectors.toList());
 		for (FootballClub footballClub : clubsInMatch) {
@@ -68,7 +65,7 @@ public class MatchService {
 		if(teamA != null && teamB != null) {
 			match = new Match(teamA, teamB, matchDTO.getTeamAGoals(), 
 					matchDTO.getTeamBGoals(), matchDTO.getDate());
-			plm.addMatch(match);
+			plmDAO.getPremierLeagueManager().addMatch(match);
 		}
 		return Optional.ofNullable(match);
 	} 

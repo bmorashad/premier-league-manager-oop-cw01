@@ -14,8 +14,6 @@ import java.util.List;
 
 import service.FootballClubService;
 import utils.HttpJsonResponse;
-import dao.PremierLeagueManagerDAO;
-import domain.PremierLeagueManager;
 import domain.model.FootballClub;
 import domain.model.Match;
 import domain.model.Season;
