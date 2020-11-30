@@ -2,6 +2,8 @@ logs
 target
 .java-version
 ui/
+.data/*.txt
+.data/.updates/*txt
 /.idea
 /.g8
 /.idea_modules
