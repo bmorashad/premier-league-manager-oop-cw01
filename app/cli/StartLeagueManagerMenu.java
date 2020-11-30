@@ -388,10 +388,10 @@ public class StartLeagueManagerMenu {
 			displayWelcomeMessage();
 			boolean exit = false;
 			while(!exit) {
-				plmDAO.syncUpdates("gui");
 				displayMenuInstructions();
 				System.out.print("\nEnter an option: ");
 				String option = sc.nextLine();
+				plmDAO.syncUpdates("gui");
 				switch(option.toLowerCase()) {
 					case "a":
 						addFootballClub();

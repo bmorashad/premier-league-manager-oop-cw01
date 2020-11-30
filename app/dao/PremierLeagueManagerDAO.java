@@ -24,7 +24,7 @@ public class PremierLeagueManagerDAO {
 	private PremierLeagueManagerDAO() { }
 
 	public void initPremierLeagueManager(Season season) {
-		String filePath = databaseDir + season.toString();
+		String filePath = databaseDir + season.toString() + ".txt";
 		ObjectOperation oo = new ObjectOperation();
 		plm = (PremierLeagueManager) oo.deserialize(filePath);
 		if(plm == null) {
@@ -52,7 +52,7 @@ public class PremierLeagueManagerDAO {
 		}
 	}
 	public void save(PremierLeagueManager plm) {
-		String filePath =  databaseDir + plm.SEASON.toString();
+		String filePath =  databaseDir + plm.SEASON.toString() + ".txt";
 		ObjectOperation oo = new ObjectOperation();
 		oo.serialize(filePath, plm);
 	}
