@@ -1,29 +1,25 @@
 package cli;
-import java.io.File;
 import java.net.URI;
 import java.awt.Desktop;
+import conf.PathConfiguration;
 
 public final class GuiAppStarter {
 	private static ProcessBuilder processBuilder;
 	private static Process serverProcess;
 	private static Process appProcess;
-	private final static String appDir ="/home/bmora/Documents/Learning/LinkedInLearning/SpringFramework/Learning Spring with Spring Boot/Exercise Files/Chapter5/05_02/05_02_end/learning-spring";
-	// private final static String appDir ="/home/bmora/Documents/PlayFrameworkPractice/premier-league-api/example/target/universal/example-1.0-SNAPSHOT/bin";
-	private final static String appPort = "http://localhost:8080";
-	// private final static String appPort = "http://localhost:9000/app/html/professional";
+	private final static String startScript = PathConfiguration.projectFinalBuildExecutable;
+	private final static String serverPID = PathConfiguration.projectRoot + "premier-league-manager/premier-league/target/universal/stage/RUNNING_PID";
+	private final static String appPort = "http://localhost:9000/app/premier-league";
 
 	private GuiAppStarter() {}
 
 	public static void start() {
 		if(serverProcess == null) {
 			processBuilder = new ProcessBuilder();
-			File commandDir = new File(appDir);
-			processBuilder.command("bash", "-c", "mvn spring-boot:run");
-			// processBuilder.command("bash", "-c", 
-					// "./example -Dplay.http.secret.key=\'QCY?tAnfk?aZ?iwrNwnxIlR6CTf:G3gf:90Latabg@5241AB`R5W:1uDFN];Ik@n\'");
-			processBuilder.directory(commandDir);
+			processBuilder.command("bash", "-c", startScript);
 			try {
 				serverProcess = processBuilder.start();
+				Thread.sleep(3000);
 			} catch (Exception e) {
 				System.out.println("Error: something went wrong when starting the app");
 				e.printStackTrace();
@@ -45,12 +41,26 @@ public final class GuiAppStarter {
 		} 
 	}
 	private static void stopServer() {
+		processBuilder = new ProcessBuilder();
+		processBuilder.command("bash", "-c", "rm", serverPID);
+		Process removePIDFile = null;
+		try {
+			removePIDFile = processBuilder.start();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		if (serverProcess !=null) {
 			serverProcess.destroy();
 			if(serverProcess.isAlive()) {
 				serverProcess.destroyForcibly();
 			}
 		} 
+		if (removePIDFile != null) {
+			removePIDFile.destroy();
+			if(removePIDFile.isAlive()){
+				removePIDFile.destroyForcibly();
+			}
+		}
 	}
 
 	public static void open() {
