@@ -55,7 +55,7 @@ public class StartLeagueManagerMenu {
     }
 	
 	public static void onStart() {
-		// GuiAppStarter.start(); 
+		GuiAppStarter.start(); 
 	} 
 
 	public static void listAvailableClubs() {
