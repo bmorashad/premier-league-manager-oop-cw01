@@ -384,9 +384,9 @@ public class StartLeagueManagerMenu {
 	}
 	public static void menu() {
 		if(plm != null) {
+			onStart();
 			displayWelcomeMessage();
 			boolean exit = false;
-			onStart();
 			while(!exit) {
 				plmDAO.syncUpdates("gui");
 				displayMenuInstructions();

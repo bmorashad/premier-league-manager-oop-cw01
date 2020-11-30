@@ -72,7 +72,6 @@ public class UpdateLogger {
 			.append("country=").append(footballClub.getCountry()).append(":")
 			.append("location=").append(footballClub.getLocation()).append(":")
 			.append("\n");
-		System.out.println(sb.toString());
 		fo.append(sb.toString());
 	} 
 	private boolean createFile(String path) {
