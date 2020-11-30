@@ -10,9 +10,9 @@ GET 	/api/football-club 						controllers.FootballClubController.getAllFootballC
 GET 	/api/season 							controllers.PremierLeagueController.getSeason()
 
 # serving frontend
-GET 	/app/premier-league						controllers.Assets.at(path="/public", file="index.html")
-GET 	/app/*file 								controllers.Assets.at(path="/public", file)
+GET 	/app/premier-league						controllers.Assets.at(path="/app/views", file="index.html")
+GET 	/app/*file 								controllers.Assets.at(path="/app/views", file)
 # GET     /app/*file     							controllers.Assets.versioned(path="/public/html", file: Asset)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public/assets", file: Asset)
+GET     /assets/*file               controllers.Assets.versioned(path="/app/views/assets", file: Asset)
