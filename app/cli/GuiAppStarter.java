@@ -17,7 +17,7 @@ public final class GuiAppStarter {
 	private GuiAppStarter() {}
 
 	public static void start() {
-		removePIDFile();
+		removeAndStopPID();
 		if(serverProcess == null) {
 			processBuilder = new ProcessBuilder();
 			processBuilder.directory(new File(projectFinalBuildExecutablePath));
@@ -51,13 +51,14 @@ public final class GuiAppStarter {
 			}
 		} 
 	}
-	private static void removePIDFile() {
+	private static void removeAndStopPID() {
 		processBuilder = new ProcessBuilder();
 		processBuilder.directory(new File(serverPIDPath));
-		processBuilder.command("bash", "-c", "rm RUNNING_PID");
-		Process removePIDFile = null;
 		try {
-			removePIDFile = processBuilder.start();
+			processBuilder.command("bash", "-c", "kill `cat RUNNING_PID`");
+			processBuilder.start();
+			processBuilder.command("bash", "-c", "rm RUNNING_PID");
+			processBuilder.start();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +70,7 @@ public final class GuiAppStarter {
 				serverProcess.destroyForcibly();
 			}
 		} 
-		removePIDFile();
+		removeAndStopPID();
 	}
 
 	public static void open() {
