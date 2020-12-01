@@ -28,7 +28,7 @@ public class PremierLeagueController extends Controller {
 
     public Result getSeason() {
         ObjectNode data = Json.newObject();
-		data.put("season", premierLeagueService.getPremierLeagueSeason());
+		data.put("season", premierLeagueService.getPremierLeagueSeason().toString());
 		JsonNode response = HttpJsonResponse.createSuccessResponse(data);
 		return ok(response);
     }

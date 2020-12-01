@@ -1,6 +1,7 @@
 package service;
 
 import dao.PremierLeagueManagerDAO;
+import domain.model.Season;
 
 public class PremierLeagueService {
 	private PremierLeagueManagerDAO plmDAO;
@@ -9,7 +10,7 @@ public class PremierLeagueService {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
 		plmDAO.getPremierLeagueManagerByActiveSeason();
 	}
-	public String getPremierLeagueSeason() {
-		return plmDAO.getPremierLeagueManager().SEASON.toString();
+	public Season getPremierLeagueSeason() {
+		return plmDAO.getPremierLeagueManager().SEASON;
 	}
 }
