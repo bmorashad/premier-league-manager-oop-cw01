@@ -36,6 +36,12 @@ public class MatchService {
 		plmDAO.syncUpdates("cli");
 		return plmDAO.getPremierLeagueManager().getMatches();
 	}
+	public List<Match> getMatchesByDate(LocalDate date) {
+		plmDAO.syncUpdates("cli");
+		return plmDAO.getPremierLeagueManager().getMatches()
+			.stream().filter(match -> match.getDate().equals(date))
+			.collect(Collectors.toList());
+	}
 	public Match createRandomMatch() {
 		Match generatedMatch = generateMatch();
 		if(generatedMatch != null) {

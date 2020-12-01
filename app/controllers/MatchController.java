@@ -11,9 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
+import java.lang.StackWalker.Option;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -33,13 +35,27 @@ public class MatchController extends Controller {
 
     public Result getAllMatches() {
 		ObjectNode data = Json.newObject();
-		List<MatchDTO> matches = matchService.getAllMatches().stream()
-			.map(match -> matchToMatchDTO(match)).collect(Collectors.toList());
+		List<MatchDTO> matches = matchListToMatchDTO(matchService.getAllMatches());
 		data.put("matches", Json.toJson(matches));
 		JsonNode response = HttpJsonResponse.createSuccessResponse(data);
 		return ok(response);
 
     }
+	public Result getMatchesByDate(Optional<String> year, Optional<String> month, Optional<String> day) {
+		ObjectNode data = Json.newObject();
+		if (year.isPresent() && month.isPresent() && day.isPresent()) {
+			LocalDate date = LocalDate.of(Integer.parseInt(year.get()), Integer.parseInt(month.get()), 
+					Integer.parseInt(day.get()));
+			List<MatchDTO> matches = matchListToMatchDTO(matchService.getMatchesByDate(date));
+			data.put("matches", Json.toJson(matches));
+			JsonNode response = HttpJsonResponse.createSuccessResponse(data);
+			return ok(response);
+		}
+		List<MatchDTO> matches = matchListToMatchDTO(matchService.getAllMatches());
+		data.put("matches", Json.toJson(matches));
+		JsonNode response = HttpJsonResponse.createSuccessResponse(data);
+		return ok(response);
+	}
 	public Result createRandomMatch() {
 		ObjectNode data = Json.newObject();
 		Match match = matchService.createRandomMatch();
@@ -63,5 +79,8 @@ public class MatchController extends Controller {
 		return new MatchDTO(teamA, teamB, teamAGoals, teamBGoals, date);
 
 	} 
-
+	private List<MatchDTO> matchListToMatchDTO(List<Match> matches) {
+		return matches.stream().map(match -> matchToMatchDTO(match))
+			.collect(Collectors.toList());
+	}
 }
