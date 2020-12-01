@@ -4,7 +4,7 @@
 
 # An example controller showing a sample home page
 POST 	/clients/:id 							controllers.HomeController.index(request: Request, id: String)
-POST 	/api/match 								controllers.MatchController.createRandomMatch(request: Request)
+GET 	/api/match/new/random  					controllers.MatchController.createRandomMatch(request: Request)
 GET 	/api/match 								controllers.MatchController.getAllMatches()
 GET 	/api/football-club 						controllers.FootballClubController.getAllFootballClubs()
 GET 	/api/season 							controllers.PremierLeagueController.getSeason()
