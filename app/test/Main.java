@@ -18,12 +18,12 @@ import java.util.regex.Pattern;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println(generateRandomInt(4, 5));
+		// System.out.println(generateRandomInt(4, 5));
 	}
-	private static int generateRandomInt(int min, int max) {
-		Random rd = new Random();
-		return rd.nextInt((max-min)+1) + min;
-	}
+	// private static int generateRandomInt(int min, int max) {
+		// Random rd = new Random();
+		// return rd.nextInt((max-min)+1) + min;
+	// }
 	private static int generateRandomInt(int min, int max) {
 		Random rd = new Random();
 		return rd.nextInt((max-min)+1) + min;

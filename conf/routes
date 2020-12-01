@@ -4,8 +4,8 @@
 
 # An example controller showing a sample home page
 POST 	/clients/:id 							controllers.HomeController.index(request: Request, id: String)
-GET 	/api/match/new/random  					controllers.MatchController.createRandomMatch(request: Request)
-GET 	/api/match 								controllers.MatchController.getMatchesByDate(year ?= null, month ?= null, day ?=null)
+GET 	/api/match/new/random  					controllers.MatchController.createRandomMatch()
+GET 	/api/match 								controllers.MatchController.getMatchesByDate(year: java.util.Optional[String] , month: java.util.Optional[String], day: java.util.Optional[String])
 GET 	/api/football-club 						controllers.FootballClubController.getAllFootballClubs()
 GET 	/api/season 							controllers.PremierLeagueController.getSeason()
 

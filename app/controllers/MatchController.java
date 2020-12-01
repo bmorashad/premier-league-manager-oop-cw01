@@ -61,14 +61,12 @@ public class MatchController extends Controller {
 		Match match = matchService.createRandomMatch();
 		if(match != null) {
 			MatchDTO matchDTO = matchToMatchDTO(match);
-			data.put("match", matchDTO);
+			data.put("match", Json.toJson(matchDTO));
 			JsonNode response = HttpJsonResponse.createSuccessResponse(data);
 			return ok(response);
 		}
-		if(isMatchAdded) {
-			JsonNode response = HttpJsonResponse.createErrorResponse("Not enough clubs to generate a match");
-			return ok(response);
-		} 	
+		JsonNode response = HttpJsonResponse.createErrorResponse("Not enough clubs to generate a match");
+		return ok(response);
 	}
 	private MatchDTO matchToMatchDTO(Match match) {
 		String teamA = match.getTeamA().getClubName();
