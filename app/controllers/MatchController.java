@@ -41,21 +41,6 @@ public class MatchController extends Controller {
 		return ok(response);
 
     }
-	public Result getMatchesByDate(Optional<String> year, Optional<String> month, Optional<String> day) {
-		ObjectNode data = Json.newObject();
-		if (year.isPresent() && month.isPresent() && day.isPresent()) {
-			LocalDate date = LocalDate.of(Integer.parseInt(year.get()), Integer.parseInt(month.get()), 
-					Integer.parseInt(day.get()));
-			List<MatchDTO> matches = matchListToMatchDTO(matchService.getMatchesByDate(date));
-			data.put("matches", Json.toJson(matches));
-			JsonNode response = HttpJsonResponse.createSuccessResponse(data);
-			return ok(response);
-		}
-		List<MatchDTO> matches = matchListToMatchDTO(matchService.getAllMatches());
-		data.put("matches", Json.toJson(matches));
-		JsonNode response = HttpJsonResponse.createSuccessResponse(data);
-		return ok(response);
-	}
 	public Result createRandomMatch() {
 		ObjectNode data = Json.newObject();
 		Match match = matchService.createRandomMatch();
