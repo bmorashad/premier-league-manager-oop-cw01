@@ -52,9 +52,10 @@ public class MatchService {
 		return null;
 	}
 	private void addMatch(Match match) {
+		System.out.println(match);
 		plmDAO.syncUpdates("cli");
 		plmDAO.getPremierLeagueManager().addMatch(match);
-		ul.logMatchUpdate(lastGeneratedMatch, "CREATE");
+		ul.logMatchUpdate(match, "CREATE");
 	}
 
 	// helper
