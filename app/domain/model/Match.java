@@ -1,6 +1,7 @@
 package domain.model;
 import java.io.Serializable;
 import java.time.LocalDate;
+import domain.custom.exception.NoOpponentFoundException;
 
 public class Match implements Serializable{
 	static final long serialVersionUID = 66L;
@@ -14,7 +15,10 @@ public class Match implements Serializable{
 	private FootballClub defeatedTeam;
 	private boolean draw;
 
-	public Match(FootballClub teamA, FootballClub teamB, int teamAGoals, int teamBGoals, LocalDate date) {
+	public Match(FootballClub teamA, FootballClub teamB, int teamAGoals, int teamBGoals, LocalDate date) throws NoOpponentFoundException {
+		if(teamA.equals(teamB)) {
+			throw new NoOpponentFoundException("TeamA and TeamB cannot be same!");
+		}
 		this.teamA = teamA;
 		this.teamB = teamB;
 		this.date = date;

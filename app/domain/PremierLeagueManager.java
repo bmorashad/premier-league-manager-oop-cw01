@@ -1,11 +1,13 @@
 package domain;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import domain.model.Match;
 import domain.model.Season;
 import domain.model.FootballClub;
 import domain.custom.exception.NoMoreClubsAllowed;
+import domain.custom.exception.NoSuchClubException;
 
 public class PremierLeagueManager implements Serializable, LeagueManager{
 	public static final long serialVersionUID = 88L;
@@ -61,10 +63,14 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 
 	@Override
 	public void addMatch(Match match) {
-		FootballClub teamA = match.getTeamA();
-		FootballClub teamB  = match.getTeamB();
+		FootballClub teamA = getClubByName(match.getTeamA().getClubName());
+		FootballClub teamB  = getClubByName(match.getTeamB().getClubName());
+		if(teamA == null || teamB == null) {
+			throw new NoSuchClubException("No such club in the premier league!");
+		}
 		int teamAGoals = match.getTeamAGoals();
 		int teamBGoals = match.getTeamBGoals();
+		LocalDate date = match.getDate();
 		teamA.addGoals(teamAGoals, teamBGoals);
 		teamB.addGoals(teamBGoals, teamAGoals);
 		if(teamAGoals != teamBGoals) {
@@ -74,7 +80,7 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 			teamA.addDrawMatch();
 			teamB.addDrawMatch();
 		}
-		matches.add(match);
+		matches.add(new Match(teamA, teamB, teamAGoals, teamBGoals, date));
 	}
 	@Override
 	public List<FootballClub> getAllClubs() {

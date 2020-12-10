@@ -220,7 +220,7 @@ public class StartLeagueManagerMenu {
 			FootballClub teamA = getAvailableClub("Enter Home team: ");
 			FootballClub teamB  = getAvailableClub("Enter Away team: ");
 			if(teamA.equals(teamB)) {
-				System.out.println("Given teams can not be opponent :3");
+				System.out.println("Given teams can not be opponent :(");
 				return;
 			}
 			LocalDate date = getMatchDate("Enter match date(YYYY-MM-D): ");
