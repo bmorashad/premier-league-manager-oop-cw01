@@ -69,11 +69,9 @@ public class PremierLeagueManagerDAO {
 					String[] update = sc.nextLine().split(":");
 					String updateType = update[1];
 					if(update[0].equals(models[0])){
-						Match match = readMatchUpdate(update);
-						syncMatchUpdates(match, updateType);
+						syncMatchUpdate(update, updateType);
 					} else if (update[0].equals(models[1])) {
-						FootballClub footballClub = readFootballClub(update);
-						syncFootballClubUpdates(footballClub, updateType);
+						syncFootballClubUpdate(update, updateType);
 					}
 				}
 				FileOperation fo = new FileOperation(updateFile);
@@ -86,38 +84,30 @@ public class PremierLeagueManagerDAO {
 			}
 		}
 	}
-	private Match readMatchUpdate(String[] update) {
-		String teamAName = update[2].split("=")[1];
-		FootballClub teamA = plm.getClubByName(teamAName);
-		String teamBName = update[3].split("=")[1];
-		FootballClub teamB = plm.getClubByName(teamBName);
+	private Match syncMatchUpdate(String[] update, String updateType) {
+		Match match = null;
+		String teamA = update[2].split("=")[1];
+		String teamB = update[3].split("=")[1];
 		int teamAGoals = Integer.parseInt(update[4].split("=")[1]);
 		int teamBGoals = Integer.parseInt(update[5].split("=")[1]);
 		LocalDate date = LocalDate.parse(update[6].split("=")[1]);
-		Match match = new Match(teamA, teamB, teamAGoals, teamBGoals, date);
+		if(updateType.equals("CREATE")) {
+			match = plm.addMatch(teamA, teamB, teamAGoals, teamBGoals, date);
+		}
 		return match;
-
 	}
-	private FootballClub readFootballClub(String[] update) {
+	private FootballClub syncFootballClubUpdate(String[] update, String updateType) {
 		String clubName = update[2].split("=")[1];
 		String location = update[3].split("=")[1];
 		String country = update[4].split("=")[1];
 		FootballClub footballClub = new FootballClub(clubName, country, location);
-		return footballClub;
-
-	}
-	private void syncFootballClubUpdates(FootballClub footballClub, String updateType) {
 		if(updateType.equals("CREATE")) {
 			plm.addFootballClub(footballClub);
 		} else if(updateType.equals("DELETE")) {
 			plm.removeFootballClub(footballClub.getClubName());
 		}
-	}
+		return footballClub;
 
-	private void syncMatchUpdates(Match match, String updateType) {
-		if(updateType.equals("CREATE")) {
-			plm.addMatch(match);
-		}
 	}
 
 	private String getActiveSeason() {
