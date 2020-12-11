@@ -43,10 +43,9 @@ public class MatchController extends Controller {
     }
 	public Result createRandomMatch() {
 		ObjectNode data = Json.newObject();
-		Match match = matchService.createRandomMatch();
+		MatchDTO match = matchService.createRandomMatch();
 		if(match != null) {
-			MatchDTO matchDTO = matchToMatchDTO(match);
-			data.put("match", Json.toJson(matchDTO));
+			data.put("match", Json.toJson(match));
 			JsonNode response = HttpJsonResponse.createSuccessResponse(data);
 			return ok(response);
 		}

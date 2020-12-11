@@ -18,7 +18,7 @@ import domain.model.FootballClub;
 
 public class MatchService {
 	private static final int MAX_GOALS = 20;
-	private static Match lastGeneratedMatch;
+	private static MatchDTO lastGeneratedMatch;
 	private PremierLeagueManagerDAO plmDAO;
 	private UpdateLogger ul;
 	private FootballClubService footballClubService;
@@ -42,35 +42,34 @@ public class MatchService {
 			.stream().filter(match -> match.getDate().equals(date))
 			.collect(Collectors.toList());
 	}
-	public Match createRandomMatch() {
-		Match generatedMatch = generateMatch();
+	public MatchDTO createRandomMatch() {
+		MatchDTO generatedMatch = generateMatchDTO();
 		if(generatedMatch != null) {
 			addMatch(generatedMatch);
 			lastGeneratedMatch = generatedMatch;
-			return lastGeneratedMatch;
 		}
-		return null;
+		return generatedMatch;
 	}
-	private void addMatch(Match match) {
-		System.out.println(match);
+	private void addMatch(MatchDTO matchDTO) {
 		plmDAO.syncUpdates("cli");
-		plmDAO.getPremierLeagueManager().addMatch(match);
+		Match match = plmDAO.getPremierLeagueManager().addMatch(matchDTO.getTeamA(), matchDTO.getTeamB(), 
+				matchDTO.getTeamAGoals(), matchDTO.getTeamBGoals(), matchDTO.getDate());
 		ul.logMatchUpdate(match, "CREATE");
 	}
 
 	// helper
-	public Match generateMatch() {
+	public MatchDTO generateMatchDTO() {
 		List<FootballClub> footballClubs = footballClubService.getAllFootballClubs();
 			if(footballClubs.size() < 2) {
 					return null;
 			}
 			List<FootballClub> randomTwoTeams = generateTwoTeams(footballClubs);
-			FootballClub  teamA = randomTwoTeams.get(0);
-			FootballClub  teamB = randomTwoTeams.get(1);
+			String  teamA = randomTwoTeams.get(0).getClubName();
+			String  teamB = randomTwoTeams.get(1).getClubName();
 			while(!isTeamDeferFromLastGeneratedMatch(teamA, teamB) && footballClubs.size() > 2) {
 				randomTwoTeams = generateTwoTeams(footballClubs);
-				teamA  = randomTwoTeams.get(0);
-				teamB  = randomTwoTeams.get(1);
+				teamA  = randomTwoTeams.get(0).getClubName();
+				teamB  = randomTwoTeams.get(1).getClubName();
 			}
 			int teamAGoals = generateGoal(MAX_GOALS);
 			int teamBGoals = generateGoal(MAX_GOALS);
@@ -79,7 +78,7 @@ public class MatchService {
 				teamBGoals = generateGoal(MAX_GOALS);
 			}
 			LocalDate date = generateDateBySeason();
-			Match match = new Match(teamA, teamB, teamAGoals, teamBGoals, date);
+			MatchDTO match = new MatchDTO(teamA, teamB, teamAGoals, teamBGoals, date);
 			return match;
 	}
 	// both min and max inclusive
@@ -87,14 +86,14 @@ public class MatchService {
 		Random rd = new Random();
 		return rd.nextInt((max-min)+1) + min;
 	}
-	private static boolean isTeamDeferFromLastGeneratedMatch(FootballClub teamA, FootballClub teamB) {
+	private static boolean isTeamDeferFromLastGeneratedMatch(String teamA, String teamB) {
 		if(lastGeneratedMatch == null) {
 			return true;
 		}
-		boolean isTeamAInLastMatch = teamA.getClubName() == lastGeneratedMatch.getTeamA().getClubName() || 
-			teamA.getClubName() == lastGeneratedMatch.getTeamB().getClubName();
-		boolean isTeamBInLastMatch = teamB.getClubName() == lastGeneratedMatch.getTeamA().getClubName() || 
-			teamB.getClubName() == lastGeneratedMatch.getTeamB().getClubName();
+		boolean isTeamAInLastMatch = teamA == lastGeneratedMatch.getTeamA() || 
+			teamA == lastGeneratedMatch.getTeamB();
+		boolean isTeamBInLastMatch = teamB == lastGeneratedMatch.getTeamA() || 
+			teamB == lastGeneratedMatch.getTeamB();
 		return !(isTeamAInLastMatch && isTeamBInLastMatch);
 	}
 	private static boolean isGoalDeferFromLastGeneratedMatch(int teamAGoals, int teamBGoals) {
@@ -136,7 +135,7 @@ public class MatchService {
 		if(footballClubs.size() > 1) {
 			FootballClub teamA = generateTeam(footballClubs);
 			FootballClub teamB = generateTeam(footballClubs);
-			while(teamA.getClubName().equals(teamB.getClubName())) {
+			while(teamA.equals(teamB)) {
 				teamB = generateTeam(footballClubs);
 			}
 			return Arrays.asList(teamA, teamB);
