@@ -34,7 +34,7 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 		if(numOfClubs == MAX_CLUBS) {
 			throw new NoMoreClubsAllowed("No more clubs can be added :/");
 		}
-		if (isClubExist(footballClub)) {
+		if (getClubByName(footballClub.getClubName()) != null) {
 			return false;
 		}
 		footballClubs.add(footballClub);
@@ -42,12 +42,12 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 	}
 
 	// helper
-	public boolean isClubExist(FootballClub footballClub) {
-		boolean clubNotExist = footballClubs.stream().
-			filter(club -> club.equals(footballClub)).
-			findFirst().isEmpty();
-		return !clubNotExist;
-	}
+	// public boolean isClubExist(FootballClub footballClub) {
+		// boolean clubNotExist = footballClubs.stream().
+			// filter(club -> club.equals(footballClub)).
+			// findFirst().isEmpty();
+		// return !clubNotExist;
+	// }
 	
 	@Override
 	public FootballClub removeFootballClub(String clubName) {
@@ -62,6 +62,7 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 	}
 
 	@Override
+	@Deprecated
 	public void addMatch(Match match) {
 		FootballClub teamA = getClubByName(match.getTeamA().getClubName());
 		FootballClub teamB  = getClubByName(match.getTeamB().getClubName());
@@ -81,6 +82,26 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 			teamB.addDrawMatch();
 		}
 		matches.add(new Match(teamA, teamB, teamAGoals, teamBGoals, date));
+	}
+	@Override
+	public Match addMatch(String teamA, String teamB, int teamAGoals, int teamBGoals, LocalDate date) {
+		FootballClub clubA = getClubByName(teamA);
+		FootballClub clubB  = getClubByName(teamB);
+		if(clubA == null || clubB == null) {
+			throw new NoSuchClubException("No such club in the premier league!");
+		}
+		clubA.addGoals(teamAGoals, teamBGoals);
+		clubB.addGoals(teamBGoals, teamAGoals);
+		Match match = new Match(clubA, clubB, teamAGoals, teamBGoals, date);
+		if(teamAGoals != teamBGoals) {
+			match.getWinningTeam().addWinningMatch();
+			match.getDefeatedTeam().addDefeatedMatch();
+		} else {
+			clubA.addDrawMatch();
+			clubB.addDrawMatch();
+		}
+		matches.add(match);
+		return match;
 	}
 	@Override
 	public List<FootballClub> getAllClubs() {

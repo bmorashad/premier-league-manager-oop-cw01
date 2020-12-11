@@ -217,8 +217,8 @@ public class StartLeagueManagerMenu {
 	public static void addMatch(){
 		listAvailableClubs();
 		try {
-			FootballClub teamA = getAvailableClub("Enter Home team: ");
-			FootballClub teamB  = getAvailableClub("Enter Away team: ");
+			String teamA = getAvailableClubName("Enter Home team: ");
+			String teamB  = getAvailableClubName("Enter Away team: ");
 			if(teamA.equals(teamB)) {
 				System.out.println("Given teams can not be opponent :(");
 				return;
@@ -226,8 +226,7 @@ public class StartLeagueManagerMenu {
 			LocalDate date = getMatchDate("Enter match date(YYYY-MM-D): ");
 			int teamAGoals = getGoals("Enter Home team goals: ");
 			int teamBGoals = getGoals("Enter Away team goals: ");
-			Match match = new Match(teamA, teamB, teamAGoals, teamBGoals,date);
-			plm.addMatch(match);
+			Match match = plm.addMatch(teamA, teamB, teamAGoals, teamBGoals, date);
 			System.out.println("Match added successfully");
 			logMatchUpdate(match, "CREATE");
 		} catch(NoMoreAttemptsLeft e) {
@@ -342,15 +341,14 @@ public class StartLeagueManagerMenu {
 		}
 		return false;
 	}
-	private static FootballClub getAvailableClub(String label) {
+	private static String getAvailableClubName(String label) {
 		int attempts = 0;
 		FootballClub club = null;
 		while(attempts < MAX_USER_INPUT_ATTEMPTS) {
 			System.out.print(label);
 			String clubName = sc.nextLine();
-			club = plm.getClubByName(clubName);
-			if(club != null) {
-				return club;
+			if(plm.getClubByName(clubName) != null) {
+				return clubName;
 			} else {
 				System.out.println("No such club in the Premier League");
 				attempts += 1;
