@@ -343,10 +343,10 @@ public class StartLeagueManagerMenu {
 	}
 	private static String getAvailableClubName(String label) {
 		int attempts = 0;
-		FootballClub club = null;
+		String clubName = null;
 		while(attempts < MAX_USER_INPUT_ATTEMPTS) {
 			System.out.print(label);
-			String clubName = sc.nextLine();
+			clubName = sc.nextLine();
 			if(plm.getClubByName(clubName) != null) {
 				return clubName;
 			} else {
@@ -358,7 +358,7 @@ public class StartLeagueManagerMenu {
 			}
 		}
 
-		return club;
+		return clubName;
 	}
 	public static void loadPremierLeague() {
 		try {
