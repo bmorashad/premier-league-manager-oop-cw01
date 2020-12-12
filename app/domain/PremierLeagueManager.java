@@ -8,6 +8,7 @@ import domain.model.Season;
 import domain.model.FootballClub;
 import domain.custom.exception.NoMoreClubsAllowed;
 import domain.custom.exception.NoSuchClubException;
+import domain.custom.exception.SeasonMismatchException;
 
 public class PremierLeagueManager implements Serializable, LeagueManager{
 	public static final long serialVersionUID = 88L;
@@ -90,6 +91,9 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 		if(clubA == null || clubB == null) {
 			throw new NoSuchClubException("No such club in the premier league!");
 		}
+		if(date.getYear() != SEASON.getFirstYear() && date.getYear() != SEASON.getSecondYear()) {
+			throw new SeasonMismatchException("Given date doesn't match with the current season!");
+		}
 		clubA.addGoals(teamAGoals, teamBGoals);
 		clubB.addGoals(teamBGoals, teamAGoals);
 		Match match = new Match(clubA, clubB, teamAGoals, teamBGoals, date);
@@ -118,9 +122,5 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 
 	public int getNumOfClubs() {
 		return footballClubs.size();
-	}
-	@Override
-	public String toString() {
-		return footballClubs.get(1).toString();
 	}
 }

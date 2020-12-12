@@ -108,5 +108,12 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
 		return comparisonResult;
 
 	}
+	@Override
+	public String toString() {
+		return new StringBuilder().append(clubName).append(", ").append(winCount).append(", ").
+			append(defeatCount).append(", ").append(drawCount).append(", ").
+			append(matchCount).append(", ").append(goalsScored).append(", ").append(goalsAgainst).
+			append(", ").append(goalsDifference).append(", ").append(points).toString();
+	}
 }
 
