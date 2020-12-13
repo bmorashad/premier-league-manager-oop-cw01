@@ -12,10 +12,11 @@ public class PathConfiguration {
 	public static final String activeSeasonPath;
 
 	static {
+		String pathSeparator = "/";
 		String root = System.getProperty("user.dir");
-		String[] folders = root.split("/");
+		String[] folders = root.split(pathSeparator);
 		int indexOfProjectRootFolder = Arrays.asList(folders).lastIndexOf(projectName);
-		projectRoot = String.join("/", Arrays.copyOfRange(folders, 0, indexOfProjectRootFolder + 1)) + "/";
+		projectRoot = String.join(pathSeparator, Arrays.copyOfRange(folders, 0, indexOfProjectRootFolder + 1)) + pathSeparator;
 		dataPath = projectRoot + "app/.data/";
 		updatesPath = dataPath + ".updates/"; 
 		cliUpdatePath = updatesPath + "cli-updates.txt"; 
