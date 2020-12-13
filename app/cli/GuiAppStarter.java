@@ -9,9 +9,9 @@ public final class GuiAppStarter {
 	private static ProcessBuilder processBuilder;
 	private static Process serverProcess;
 	private static Process appProcess;
-	public static final String projectFinalBuildExecutablePath = PathConfiguration.projectRoot + "premier-league-manager/premier-league/target/universal/stage/bin/"; 
+	public static final String projectFinalBuildExecutablePath = PathConfiguration.projectRoot + "target/universal/stage/bin/"; 
 	private final static String startScript = "./premier-league";
-	private final static String serverPIDPath = PathConfiguration.projectRoot + "premier-league-manager/premier-league/target/universal/stage/";
+	private final static String serverPIDPath = PathConfiguration.projectRoot + "target/universal/stage/";
 	private final static String appPort = "http://localhost:9000/app/premier-league";
 
 	private GuiAppStarter() {}
