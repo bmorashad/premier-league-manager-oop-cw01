@@ -14,7 +14,8 @@ public class PathConfiguration {
 	static {
 		String pathSeparator = "/";
 		String root = System.getProperty("user.dir");
-		root = root.replaceAll("\\\\", "/");
+		root = root.replace("\\\\", "/");
+		root = root.replace("\\", "/");
 		String[] folders = root.split(pathSeparator);
 		int indexOfProjectRootFolder = Arrays.asList(folders).lastIndexOf(projectName);
 		projectRoot = String.join(pathSeparator, Arrays.copyOfRange(folders, 0, indexOfProjectRootFolder + 1)) + pathSeparator;
