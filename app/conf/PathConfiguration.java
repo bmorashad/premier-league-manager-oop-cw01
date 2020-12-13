@@ -19,7 +19,7 @@ public class PathConfiguration {
 		String[] folders = root.split(pathSeparator);
 		int indexOfProjectRootFolder = Arrays.asList(folders).lastIndexOf(projectName);
 		projectRoot = String.join(pathSeparator, Arrays.copyOfRange(folders, 0, indexOfProjectRootFolder + 1)) + pathSeparator;
-		dataPath = projectRoot + "app/.data/";
+		dataPath = projectRoot + ".data/";
 		updatesPath = dataPath + ".updates/"; 
 		cliUpdatePath = updatesPath + "cli-updates.txt"; 
 		guiUpdatesPath = updatesPath + "gui-updates.txt"; 
