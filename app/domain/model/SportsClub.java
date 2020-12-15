@@ -3,9 +3,9 @@ import java.io.Serializable;
 
 public abstract class SportsClub implements Serializable{
 	static final long serialVersionUID = 88L;
-	String clubName;
-	String country;
-	String location;
+	protected String clubName;
+	protected String country;
+	protected String location;
 
 	public String getClubName() {
         return clubName;

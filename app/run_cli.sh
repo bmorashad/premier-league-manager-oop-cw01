@@ -1,4 +1,10 @@
+rm dao/*.class
 rm cli/*.class
 rm conf/*.class
+rm utils/*.class
+rm domain/*.class
+rm domain/model/*.class
+rm cli/custom/exception/*.class
+rm domain/custom/exception/*.class
 javac cli/StartLeagueManagerMenu.java
 java cli/StartLeagueManagerMenu
