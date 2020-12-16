@@ -49,30 +49,6 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
 		return points;
 	}
 
-	public void setWinCount(int winCount) {
-		this.winCount = winCount;
-	}
-
-	public void setDefeatCount(int defeatCount) {
-		this.defeatCount = defeatCount;
-	}
-	public void setMatchCount(int matchCount) {
-		this.matchCount = matchCount;
-	}
-	public void setGoalsAgainst(int goalsAgainst) {
-		this.goalsAgainst = goalsAgainst;
-	}
-	public void setGoalsScored(int goalsScored) {
-		this.goalsScored = goalsScored;
-	}
-	public void setGoalsDifference(int goalsDifference) {
-		this.goalsDifference = goalsDifference;
-	}
-	public void setPoints(int points) {
-		this.points = points;
-	}
-
-	// controversial
 	public void addWinningMatch() {
 		matchCount += 1;
 		points += 3;
