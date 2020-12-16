@@ -13,7 +13,6 @@ public class Match implements Serializable{
 	private LocalDate date;
 	private FootballClub winningTeam;
 	private FootballClub defeatedTeam;
-	private boolean draw;
 
 	public Match(FootballClub teamA, FootballClub teamB, int teamAGoals, int teamBGoals, LocalDate date) throws NoOpponentFoundException {
 		if(teamA.equals(teamB)) {
@@ -53,9 +52,6 @@ public class Match implements Serializable{
 		return defeatedTeam;
 	}
 
-	public boolean isDraw() {
-		return draw;
-	}
 	public void setTeamA(FootballClub teamA) {
 		this.teamA = teamA;
 	}
@@ -73,7 +69,6 @@ public class Match implements Serializable{
 	public void addGoals(int teamAGoals, int teamBGoals) {
 		this.teamAGoals = teamAGoals;
 		this.teamBGoals = teamBGoals;
-		draw = false;
 		if (teamAGoals > teamBGoals) {
 			winningTeam = teamA;
 			defeatedTeam = teamB;
@@ -84,7 +79,6 @@ public class Match implements Serializable{
 			defeatedTeam = teamA;
 			return;
 		}
-		draw = true;
 	}
 
 }
