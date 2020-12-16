@@ -25,7 +25,7 @@ public final class GuiAppStarter {
 			processBuilder = new ProcessBuilder();
 			processBuilder.directory(new File(SERVER_EXECUTABLE));
 			if (isWindows()) {
-				processBuilder.command("cmd.exe", "/c", "start \"\" " + START_SCRIPT + ".bat");
+				processBuilder.command("cmd.exe", "/c", "start " + START_SCRIPT + ".bat");
 			} else {
 				processBuilder.command("bash", "-c", START_SCRIPT);
 			}
