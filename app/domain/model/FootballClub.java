@@ -69,8 +69,8 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
 		goalsDifference = this.goalsScored - this.goalsAgainst;
 	}
 	@Override
-    public boolean equals(Object o) {
-        return this.clubName.equals(((FootballClub)o).clubName);
+    public boolean equals(Object club) {
+        return this.clubName.equals(((FootballClub)club).clubName);
     }
 
 	@Override
