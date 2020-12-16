@@ -21,8 +21,8 @@ public abstract class SportsClub implements Serializable{
 	public void setCountry(String country) {
 		this.country = country;
 	}
-    public void setClubLocation(String s) {
-        this.location = s;
+    public void setLocation(String location) {
+        this.location = location;
     }
     
     public void setClubName(String clubName) {
