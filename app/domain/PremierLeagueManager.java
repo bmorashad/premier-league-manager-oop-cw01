@@ -25,6 +25,7 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 		matches = new ArrayList<>();
 	}
 
+	@Override
 	public List<Match> getMatches() {
 		return matches;
 	}

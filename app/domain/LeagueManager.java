@@ -14,6 +14,7 @@ public interface LeagueManager {
 	Match addMatch(String teamA, String teamB, int teamAGoals, int teamBGoals, LocalDate date) throws 
 		NoSuchClubException, SeasonMismatchException;
 	List<FootballClub> getAllClubs();
+	List<Match> getMatches();
 	FootballClub getClubByName(String clubName);
 	// void displayMatches();
 }
