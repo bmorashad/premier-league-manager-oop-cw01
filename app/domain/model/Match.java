@@ -52,16 +52,6 @@ public class Match implements Serializable{
 		return defeatedTeam;
 	}
 
-	public void setTeamA(FootballClub teamA) {
-		this.teamA = teamA;
-	}
-
-	public void setTeamB(FootballClub teamB) {
-		this.teamB = teamB;
-	}
-
-
-
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
