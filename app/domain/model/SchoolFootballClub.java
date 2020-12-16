@@ -5,8 +5,8 @@ public class SchoolFootballClub extends FootballClub{
 
 	private String schoolName;
 
-	public SchoolFootballClub(String country, String location, String clubName, String schoolName) {
-		super(country, location, clubName);
+	public SchoolFootballClub(String clubName, String country, String location, String schoolName) {
+		super(clubName, country, location);
 		this.schoolName = schoolName;
 	}
 	
