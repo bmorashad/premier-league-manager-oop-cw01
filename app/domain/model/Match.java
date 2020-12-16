@@ -66,7 +66,7 @@ public class Match implements Serializable{
 		this.date = date;
 	}
 
-	public void addGoals(int teamAGoals, int teamBGoals) {
+	private void addGoals(int teamAGoals, int teamBGoals) {
 		this.teamAGoals = teamAGoals;
 		this.teamBGoals = teamBGoals;
 		if (teamAGoals > teamBGoals) {
