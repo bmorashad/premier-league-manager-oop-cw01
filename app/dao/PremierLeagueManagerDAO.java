@@ -14,7 +14,7 @@ import domain.model.Match;
 import conf.PathConfiguration;
 
 public class PremierLeagueManagerDAO {
-	private static volatile PremierLeagueManagerDAO plmDAO;
+	private static volatile PremierLeagueManagerDAO instance;
 	private static PremierLeagueManager plm;
 	private static final String databaseDir = PathConfiguration.dataPath;
 	private static final String cliUpdatesPath = PathConfiguration.cliUpdatePath;
@@ -40,15 +40,15 @@ public class PremierLeagueManagerDAO {
 		return plm;
 	}
 	public static PremierLeagueManagerDAO getInstance() {
-		PremierLeagueManagerDAO _plmDAO = plmDAO;
+		PremierLeagueManagerDAO _plmDAO = instance;
 		if(_plmDAO != null) {
-			return plmDAO;
+			return instance;
 		}
 		synchronized(PremierLeagueManagerDAO.class) {
-			if(plmDAO == null) {
-				plmDAO = new PremierLeagueManagerDAO();
+			if(instance == null) {
+				instance = new PremierLeagueManagerDAO();
 			}
-			return plmDAO;
+			return instance;
 		}
 	}
 	public void save(PremierLeagueManager plm) {
