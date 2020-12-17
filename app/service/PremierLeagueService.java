@@ -8,7 +8,7 @@ public class PremierLeagueService {
 
 	public PremierLeagueService() {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
-		plmDAO.getPremierLeagueManagerByActiveSeason();
+		plmDAO.initPremierLeagueManagerByActiveSeason();
 	}
 	public Season getPremierLeagueSeason() {
 		return plmDAO.getPremierLeagueManager().SEASON;

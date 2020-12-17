@@ -31,7 +31,7 @@ public class PremierLeagueManagerDAO {
 			plm = new PremierLeagueManager(season);
 		}
 	}
-	public PremierLeagueManager getPremierLeagueManagerByActiveSeason(){
+	public PremierLeagueManager initPremierLeagueManagerByActiveSeason(){
 		String activeSeason = getActiveSeason();
 		initPremierLeagueManager(Season.parse(activeSeason));
 		return plm;

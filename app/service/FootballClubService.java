@@ -11,7 +11,7 @@ public class FootballClubService {
 	private PremierLeagueManagerDAO plmDAO;
 	public FootballClubService() {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
-		plmDAO.getPremierLeagueManagerByActiveSeason();
+		plmDAO.initPremierLeagueManagerByActiveSeason();
 	}
 	public List<FootballClub> getAllFootballClubs() {
 		plmDAO.syncUpdates("cli");

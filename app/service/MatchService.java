@@ -26,7 +26,7 @@ public class MatchService {
 
 	public MatchService() {
 		plmDAO = PremierLeagueManagerDAO.getInstance();
-		plmDAO.getPremierLeagueManagerByActiveSeason();
+		plmDAO.initPremierLeagueManagerByActiveSeason();
 		footballClubService = new FootballClubService();
 		premierLeagueService = new PremierLeagueService();
 		ul = new UpdateLogger("gui");
