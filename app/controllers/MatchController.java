@@ -26,7 +26,7 @@ import service.MatchService;
 import javax.inject.Inject;
 
 public class MatchController extends Controller {
-	MatchService matchService;
+	private MatchService matchService;
 
 	@Inject
 	public MatchController(MatchService matchService) {
