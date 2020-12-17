@@ -54,11 +54,11 @@ public class StartLeagueManagerMenu {
         return false;
     }
 	
-	public static void onStart() {
+	private static void onStart() {
 		GuiAppStarter.start(); 
 	} 
 
-	public static void listAvailableClubs() {
+	private static void listAvailableClubs() {
 		List<FootballClub> footballClubs = plm.getAllClubs();
 		int numOfClubs = footballClubs.size();
 		String availableClubs = " ";
@@ -72,12 +72,12 @@ public class StartLeagueManagerMenu {
 		System.out.println("---Available Clubs In League---");
 		System.out.println(availableClubs);
 	}
-	public static void displayWelcomeMessage() {
+	private static void displayWelcomeMessage() {
 		System.out.println("===============/|\\====================="); 
 		System.out.println("   Welcome to Premier League Manager");
 		System.out.println("=======================================");
 	}
-	public static void displayMenuInstructions() { 
+	private static void displayMenuInstructions() { 
 		System.out.println("\u001B[1mOptions:\033[0;0m");
 		System.out.println("     (a|A)\t- Add Football Club");
 		System.out.println("     (r|R)\t- Remove Football Club");
@@ -88,7 +88,7 @@ public class StartLeagueManagerMenu {
 		System.out.println("     (q|Q)\t- Exit Menu");
 	}
 
-	public static void addFootballClub() {
+	private static void addFootballClub() {
 		try {
 			String clubName = capitalize(getWord("Enter club name: "));
 			String country = capitalize(getWord("Enter the country of club:  "));
@@ -111,7 +111,7 @@ public class StartLeagueManagerMenu {
 	}
 
 
-	public static void removeFootballClub() {
+	private static void removeFootballClub() {
 		listAvailableClubs();
 		System.out.print("Enter club name: ");
 		String clubName = sc.nextLine();
@@ -128,7 +128,7 @@ public class StartLeagueManagerMenu {
 		}
 		System.out.println("Aborted!");
 	}
-	public static void displayStandingsTable() {
+	private static void displayStandingsTable() {
 		List<FootballClub> footballClubs = plm.getAllClubs();
 		Collections.sort(footballClubs, Collections.reverseOrder());
 		// System.out.print("\u001B[1m");
@@ -193,7 +193,7 @@ public class StartLeagueManagerMenu {
 		return str;
 	}
 
-	public static void displayStatisticsByClub() {
+	private static void displayStatisticsByClub() {
 		listAvailableClubs();
 		System.out.print("Enter club name: ");
 		String clubName = sc.nextLine();
@@ -214,7 +214,7 @@ public class StartLeagueManagerMenu {
 		System.out.println("---------------------------------------");
 	}
 
-	public static void addMatch(){
+	private static void addMatch(){
 		listAvailableClubs();
 		try {
 			String teamA = getAvailableClubName("Enter Home team: ");
@@ -360,7 +360,7 @@ public class StartLeagueManagerMenu {
 
 		return clubName;
 	}
-	public static void loadPremierLeague() {
+	private static void loadPremierLeague() {
 		try {
 			Season season = getSeason("Enter Premier League Season(YYYY-YYYY): ");
 			plmDAO.initPremierLeagueManager(season);
@@ -370,7 +370,7 @@ public class StartLeagueManagerMenu {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void savePremierLeague() {
+	private static void savePremierLeague() {
 		plmDAO.syncUpdates("gui");
 		plmDAO.save(plm);
 	}
@@ -380,7 +380,7 @@ public class StartLeagueManagerMenu {
 	private static void logFootballClubUpdate(FootballClub footballClub, String updateType) {
 		ul.logFootballClubUpdate(footballClub, updateType);
 	}
-	public static void menu() {
+	private static void menu() {
 		if(plm != null) {
 			onStart();
 			displayWelcomeMessage();
