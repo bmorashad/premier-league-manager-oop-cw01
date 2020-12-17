@@ -58,7 +58,7 @@ public class MatchService {
 	}
 
 	// helper
-	public MatchDTO generateMatchDTO() {
+	private MatchDTO generateMatchDTO() {
 		List<FootballClub> footballClubs = footballClubService.getAllFootballClubs();
 			if(footballClubs.size() < 2) {
 					return null;
