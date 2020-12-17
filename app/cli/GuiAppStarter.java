@@ -110,20 +110,4 @@ public final class GuiAppStarter {
 	private static boolean isWindows() {
 		return OS.contains("windows");
 	}
-	@Deprecated
-	public static void openApp() {
-		try {
-			URI uri = new URI(APP_PORT);
-			if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-				try {
-					Desktop.getDesktop().browse(uri);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 }

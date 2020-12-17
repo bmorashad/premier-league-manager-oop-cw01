@@ -64,28 +64,6 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 	}
 
 	@Override
-	@Deprecated
-	public void addMatch(Match match) {
-		FootballClub teamA = getClubByName(match.getTeamA().getClubName());
-		FootballClub teamB  = getClubByName(match.getTeamB().getClubName());
-		if(teamA == null || teamB == null) {
-			throw new NoSuchClubException("No such club in the premier league!");
-		}
-		int teamAGoals = match.getTeamAGoals();
-		int teamBGoals = match.getTeamBGoals();
-		LocalDate date = match.getDate();
-		teamA.addGoals(teamAGoals, teamBGoals);
-		teamB.addGoals(teamBGoals, teamAGoals);
-		if(teamAGoals != teamBGoals) {
-			match.getWinningTeam().addWinningMatch();
-			match.getDefeatedTeam().addDefeatedMatch();
-		} else {
-			teamA.addDrawMatch();
-			teamB.addDrawMatch();
-		}
-		matches.add(new Match(teamA, teamB, teamAGoals, teamBGoals, date));
-	}
-	@Override
 	public Match addMatch(String teamA, String teamB, int teamAGoals, int teamBGoals, LocalDate date) {
 		FootballClub clubA = getClubByName(teamA);
 		FootballClub clubB  = getClubByName(teamB);
