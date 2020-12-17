@@ -7,9 +7,9 @@ import conf.PathConfiguration;
 
 public final class GuiAppStarter {
 	private final static String OS;
-	public static final String SERVER_EXECUTABLE = PathConfiguration.projectRoot + "target/universal/stage/bin/"; 
+	public static final String SERVER_EXECUTABLE = PathConfiguration.PROJECT_ROOT + "target/universal/stage/bin/"; 
 	private final static String START_SCRIPT = "./premier-league";
-	private final static String SERVER_PID = PathConfiguration.projectRoot + "target/universal/stage/";
+	private final static String SERVER_PID = PathConfiguration.PROJECT_ROOT + "target/universal/stage/";
 	private final static String APP_PORT = "http://localhost:9000/app/premier-league";
 	private static ProcessBuilder processBuilder;
 	private static Process serverProcess;

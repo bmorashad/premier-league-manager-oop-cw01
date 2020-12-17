@@ -16,15 +16,15 @@ import conf.PathConfiguration;
 public class PremierLeagueManagerDAO {
 	private static volatile PremierLeagueManagerDAO instance;
 	private static PremierLeagueManager plm;
-	private static final String databaseDir = PathConfiguration.dataPath;
-	private static final String cliUpdatesPath = PathConfiguration.cliUpdatePath;
-	private static final String guiUpdatesPath = PathConfiguration.guiUpdatesPath;
-	private static final String activeSeasonPath = PathConfiguration.activeSeasonPath;
+	private static final String DATABASE_DIR = PathConfiguration.DATA_PATH;
+	private static final String CLI_UPDATES_PATH = PathConfiguration.CLI_UPDATES_PATH;
+	private static final String GUI_UPDATES_PATH = PathConfiguration.GUI_UPDATES_PATH;
+	private static final String ACTIVE_SEASON_PATH = PathConfiguration.ACTIVE_SEASON_PATH;
 
 	private PremierLeagueManagerDAO() { }
 
 	public void initPremierLeagueManager(Season season) {
-		String filePath = databaseDir + season.toString() + ".txt";
+		String filePath = DATABASE_DIR + season.toString() + ".txt";
 		ObjectOperation oo = new ObjectOperation();
 		plm = (PremierLeagueManager) oo.deserialize(filePath);
 		if(plm == null) {
@@ -52,12 +52,12 @@ public class PremierLeagueManagerDAO {
 		}
 	}
 	public void save(PremierLeagueManager plm) {
-		String filePath =  databaseDir + plm.SEASON.toString() + ".txt";
+		String filePath =  DATABASE_DIR + plm.SEASON.toString() + ".txt";
 		ObjectOperation oo = new ObjectOperation();
 		oo.serialize(filePath, plm);
 	}
 	public void syncUpdates(String type) {
-		String updateFile = type.toLowerCase() == "cli" ? cliUpdatesPath : guiUpdatesPath;
+		String updateFile = type.toLowerCase() == "cli" ? CLI_UPDATES_PATH : GUI_UPDATES_PATH;
 		String[] models = {Match.class.getSimpleName().toUpperCase(), 
 			FootballClub.class.getSimpleName().toUpperCase()};
 		File file = new File(updateFile);
@@ -111,7 +111,7 @@ public class PremierLeagueManagerDAO {
 	}
 
 	private String getActiveSeason() {
-		File file = new File(activeSeasonPath);
+		File file = new File(ACTIVE_SEASON_PATH);
 		Scanner sc;
 		String activeSeason = "";
 		if(file.exists()) {

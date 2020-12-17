@@ -3,13 +3,13 @@ package conf;
 import java.util.Arrays;
 
 public class PathConfiguration {
-	public static final String projectName = "premier-league"; 
-	public static final String projectRoot; 
-	public static final String dataPath;
-	public static final String updatesPath; 
-	public static final String cliUpdatePath; 
-	public static final String guiUpdatesPath; 
-	public static final String activeSeasonPath;
+	public static final String PROJECT_NAME = "premier-league"; 
+	public static final String PROJECT_ROOT; 
+	public static final String DATA_PATH;
+	public static final String UPDATES_PATH; 
+	public static final String CLI_UPDATES_PATH; 
+	public static final String GUI_UPDATES_PATH; 
+	public static final String ACTIVE_SEASON_PATH;
 
 	static {
 		String pathSeparator = "/";
@@ -17,12 +17,12 @@ public class PathConfiguration {
 		root = root.replace("\\\\", pathSeparator);
 		root = root.replace("\\", pathSeparator);
 		String[] folders = root.split(pathSeparator);
-		int indexOfProjectRootFolder = Arrays.asList(folders).lastIndexOf(projectName);
-		projectRoot = String.join(pathSeparator, Arrays.copyOfRange(folders, 0, indexOfProjectRootFolder + 1)) + pathSeparator;
-		dataPath = projectRoot + ".data/";
-		updatesPath = dataPath + ".updates/"; 
-		cliUpdatePath = updatesPath + "cli-updates.txt"; 
-		guiUpdatesPath = updatesPath + "gui-updates.txt"; 
-		activeSeasonPath = dataPath + "active-season.txt";
+		int indexOfProjectRootFolder = Arrays.asList(folders).lastIndexOf(PROJECT_NAME);
+		PROJECT_ROOT = String.join(pathSeparator, Arrays.copyOfRange(folders, 0, indexOfProjectRootFolder + 1)) + pathSeparator;
+		DATA_PATH = PROJECT_ROOT + ".data/";
+		UPDATES_PATH = DATA_PATH + ".updates/"; 
+		CLI_UPDATES_PATH = UPDATES_PATH + "cli-updates.txt"; 
+		GUI_UPDATES_PATH = UPDATES_PATH + "gui-updates.txt"; 
+		ACTIVE_SEASON_PATH = DATA_PATH + "active-season.txt";
 	}
 }

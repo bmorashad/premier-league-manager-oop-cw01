@@ -7,7 +7,7 @@ import conf.PathConfiguration;
 
 public class UpdateLogger {
 	private String updatesPath; 
-	private static final String activeSeason = PathConfiguration.activeSeasonPath;
+	private static final String ACTIVE_SEASON_PATH = PathConfiguration.ACTIVE_SEASON_PATH;
 
 	public UpdateLogger(String type) {
 		setUpdatesPath(type);
@@ -15,13 +15,13 @@ public class UpdateLogger {
 	private void setUpdatesPath(String type){
 		switch(type.toLowerCase()) {
 			case "cli":
-				updatesPath = PathConfiguration.cliUpdatePath;
+				updatesPath = PathConfiguration.CLI_UPDATES_PATH;
 				break;
 			case "gui":
-				updatesPath = PathConfiguration.guiUpdatesPath;
+				updatesPath = PathConfiguration.GUI_UPDATES_PATH;
 				break;
 			default:
-				updatesPath = PathConfiguration.cliUpdatePath;
+				updatesPath = PathConfiguration.CLI_UPDATES_PATH;
 		}
 	}
 	public void clearLogs() {
@@ -29,13 +29,13 @@ public class UpdateLogger {
 		fo.write("");
 	}
 	public static void clearAllLogs() {
-		FileOperation fo = new FileOperation(PathConfiguration.cliUpdatePath);
+		FileOperation fo = new FileOperation(PathConfiguration.CLI_UPDATES_PATH);
 		fo.write("");
-		fo.setPath(PathConfiguration.guiUpdatesPath);
+		fo.setPath(PathConfiguration.GUI_UPDATES_PATH);
 		fo.write("");
 	}
 	public static void logActiveSeason(String season) {
-		String path =  activeSeason;
+		String path =  ACTIVE_SEASON_PATH;
 		FileOperation fo = new FileOperation(path);
 		fo.write(season);
 	}
