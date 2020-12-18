@@ -17,7 +17,6 @@ public final class GuiAppStarter {
 	static {
 		OS = System.getProperty("os.name").toLowerCase();
 	}
-	private GuiAppStarter() {}
 
 	public static void start() {
 		removeAndStopPID();
