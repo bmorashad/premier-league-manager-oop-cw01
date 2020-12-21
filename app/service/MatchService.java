@@ -29,7 +29,7 @@ public class MatchService {
 		plmDAO.initPremierLeagueManagerByActiveSeason();
 		footballClubService = new FootballClubService();
 		premierLeagueService = new PremierLeagueService();
-		ul = new UpdateLogger("gui");
+		ul = UpdateLogger.getInstance("gui");
 	}
 
 	public List<Match> getAllMatches() {

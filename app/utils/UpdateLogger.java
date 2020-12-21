@@ -1,15 +1,32 @@
 package utils;
 
+import java.util.HashMap;
 import java.io.File;
 import domain.model.Match;
 import domain.model.FootballClub;
 import conf.PathConfiguration;
 
 public class UpdateLogger {
+	private static HashMap<String, UpdateLogger>  ulInstances = new HashMap<>();
+
 	private String updatesPath; 
 	private static final String ACTIVE_SEASON_PATH = PathConfiguration.ACTIVE_SEASON_PATH;
 
-	public UpdateLogger(String type) {
+	static {
+		ulInstances.put("cli", new UpdateLogger("cli"));
+		ulInstances.put("gui", new UpdateLogger("gui"));
+	}
+	public static UpdateLogger getInstance(String type) {
+		switch (type.toLowerCase()) {
+			case "cli":
+				return ulInstances.get("cli");
+			case "gui":
+				return ulInstances.get("gui");
+			default:
+				return ulInstances.get("cli");	
+		}
+	}
+	private UpdateLogger(String type) {
 		setUpdatesPath(type);
 	}
 	private void setUpdatesPath(String type){

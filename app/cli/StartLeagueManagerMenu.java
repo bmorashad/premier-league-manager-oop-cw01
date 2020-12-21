@@ -27,7 +27,7 @@ public class StartLeagueManagerMenu {
 	static {
 		sc = new Scanner(System.in);
 		plmDAO = PremierLeagueManagerDAO.getInstance();
-		ul = new UpdateLogger("CLI");
+		ul = UpdateLogger.getInstance("cli");
 	}
 	private static boolean isOnlyAlphabet(String str) {
 		return Regex.isMatch("^[aA-zZ ]+$", str);
