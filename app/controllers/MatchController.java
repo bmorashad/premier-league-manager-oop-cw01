@@ -49,7 +49,7 @@ public class MatchController extends Controller {
 			JsonNode response = HttpJsonResponse.createSuccessResponse(data);
 			return ok(response);
 		}
-		JsonNode response = HttpJsonResponse.createErrorResponse("Not enough clubs to generate a match");
+		JsonNode response = HttpJsonResponse.createErrorResponse("Not enough clubs to generate a match: some clubs may have been removed");
 		return ok(response);
 	}
 	private MatchDTO matchToMatchDTO(Match match) {
