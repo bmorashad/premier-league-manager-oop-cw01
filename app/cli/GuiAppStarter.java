@@ -107,6 +107,6 @@ public final class GuiAppStarter {
 	}
 
 	private static boolean isWindows() {
-		return OS.contains("windows");
+		return OS.contains("win");
 	}
 }
