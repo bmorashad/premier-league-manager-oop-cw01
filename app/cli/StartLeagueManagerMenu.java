@@ -223,7 +223,7 @@ public class StartLeagueManagerMenu {
 				System.out.println("Given teams can not be opponent :(");
 				return;
 			}
-			LocalDate date = getMatchDate("Enter match date(YYYY-MM-D): ");
+			LocalDate date = getMatchDate("Enter match date(YYYY-MM-DD): ");
 			int teamAGoals = getGoals("Enter Home team goals: ");
 			int teamBGoals = getGoals("Enter Away team goals: ");
 			Match match = plm.addMatch(teamA, teamB, teamAGoals, teamBGoals, date);
