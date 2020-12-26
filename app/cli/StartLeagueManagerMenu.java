@@ -91,7 +91,7 @@ public class StartLeagueManagerMenu {
 	private static void addFootballClub() {
 		try {
 			String clubName = capitalize(getWord("Enter club name: "));
-			String country = capitalize(getWord("Enter the country of club:  "));
+			String country = capitalize(getWord("Enter the country of club: "));
 			String location = capitalize(getWord("Enter club location: "));
 			try {
 				FootballClub footballClub = new FootballClub(clubName, country, location);
