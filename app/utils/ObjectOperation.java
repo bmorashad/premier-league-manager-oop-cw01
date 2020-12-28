@@ -7,31 +7,20 @@ import java.io.ObjectOutputStream;
 
 public class ObjectOperation {
 	public void serialize(String path, Object obj) {
-		try {
-			FileOutputStream fos
-				= new FileOutputStream(path);
-			ObjectOutputStream oos 
-				= new ObjectOutputStream(fos);
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
 			oos.writeObject(obj);
 			oos.flush();
-			oos.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		} 	
 	}
 	public Object deserialize(String path) {
 		File objPath = new File(path);
 
 		Object obj = null;
 		if (objPath.exists() && objPath.isFile()) {
-			try {
-				FileInputStream fis
-					= new FileInputStream(path);
-				ObjectInputStream ois
-					= new ObjectInputStream(fis);
+			try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
 				obj = ois.readObject();
-				ois.close(); 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
