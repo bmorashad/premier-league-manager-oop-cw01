@@ -16,28 +16,16 @@ public class FileOperation {
 	}
 	public void write(String content) {
 		File file = new File(path);
-		FileWriter fw;
-		try {
-			fw = new FileWriter(file);
+		try (FileWriter fw = new FileWriter(file)) {
 			fw.append(content);
-			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
 	}
 	public void append(String content) {
 		File file = new File(path);
-		FileWriter fw;
-		BufferedWriter bw;
-		PrintWriter pw;
-		try {
-			fw = new FileWriter(file, true);
-			bw = new BufferedWriter(fw);
-			pw = new PrintWriter(bw);
+		try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
 			pw.print(content);
-			pw.close();
-			bw.close();
-			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 

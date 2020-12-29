@@ -52,10 +52,8 @@ public class PremierLeagueManagerDAO {
 		String[] models = {Match.class.getSimpleName().toUpperCase(), 
 			FootballClub.class.getSimpleName().toUpperCase()};
 		File file = new File(updateFile);
-		Scanner sc;
 		if(file.exists()) {
-			try {
-				sc = new Scanner(file);
+			try (Scanner sc = new Scanner(file)) {
 				while (sc.hasNext()) {
 					String[] update = sc.nextLine().split(":");
 					String updateType = update[1];
@@ -67,7 +65,6 @@ public class PremierLeagueManagerDAO {
 				}
 				FileOperation fo = new FileOperation(updateFile);
 				fo.write("");
-				sc.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -103,13 +100,10 @@ public class PremierLeagueManagerDAO {
 
 	private String getActiveSeason() {
 		File file = new File(ACTIVE_SEASON_PATH);
-		Scanner sc;
 		String activeSeason = "";
 		if(file.exists()) {
-			try {
-				sc = new Scanner(file);
+			try (Scanner sc = new Scanner(file)) {
 				activeSeason= sc.nextLine();
-				sc.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
