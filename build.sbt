@@ -1,4 +1,4 @@
-name := """premier-league"""
+name := """premier-league-manager-oop-cw01"""
 organization := "com.rashad"
 
 version := "1.0-SNAPSHOT"
