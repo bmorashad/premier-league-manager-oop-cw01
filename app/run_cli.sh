@@ -1,3 +1,4 @@
+#!/bin/bash
 rm -f dao/*.class
 rm -f cli/*.class
 rm -f conf/*.class
