@@ -1,5 +1,7 @@
 package conf;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class PathConfiguration {
@@ -24,5 +26,26 @@ public class PathConfiguration {
 		CLI_UPDATES_PATH = UPDATES_PATH + "cli-updates.txt"; 
 		GUI_UPDATES_PATH = UPDATES_PATH + "gui-updates.txt"; 
 		ACTIVE_SEASON_PATH = DATA_PATH + "active-season.txt";
+		createDataPaths();
+	}
+
+	private static void createDataPaths() {
+		File dataDir = new File(DATA_PATH);
+		File updatesDir = new File(UPDATES_PATH);
+		File activeSeason = new File(ACTIVE_SEASON_PATH);
+		if(!dataDir.exists()) {
+			dataDir.mkdirs();
+		}
+		if(!updatesDir.exists()) {
+			updatesDir.mkdirs();
+		}
+		if(!activeSeason.exists()) {
+			try {
+				activeSeason.createNewFile();
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+			
+		}
 	}
 }
