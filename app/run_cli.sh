@@ -1,10 +1,10 @@
-rm dao/*.class
-rm cli/*.class
-rm conf/*.class
-rm utils/*.class
-rm domain/*.class
-rm domain/model/*.class
-rm cli/custom/exception/*.class
-rm domain/custom/exception/*.class
-javac cli/StartLeagueManagerMenu.java
-java cli/StartLeagueManagerMenu
+rm -f dao/*.class
+rm -f cli/*.class
+rm -f conf/*.class
+rm -f utils/*.class
+rm -f domain/*.class
+rm -f domain/model/*.class
+rm -f cli/custom/exception/*.class
+rm -f domain/custom/exception/*.class
+javac -d out/ cli/StartLeagueManagerMenu.java
+java -cp out/ cli/StartLeagueManagerMenu
