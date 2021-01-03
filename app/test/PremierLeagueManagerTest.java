@@ -92,6 +92,10 @@ public class PremierLeagueManagerTest {
 		assertNull(club);
 		club = plm.getClubByName("Manchester");
 		assertNotNull(club);
+
+		// plm.addFootballClub(new FootballClub("Barca", "country", "location"));
+		// club = plm.removeFootballClub("barca");
+		// assertNotNull(club);
 	}
 
 }

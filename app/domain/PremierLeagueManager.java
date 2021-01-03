@@ -55,7 +55,7 @@ public class PremierLeagueManager implements Serializable, LeagueManager{
 	public FootballClub removeFootballClub(String clubName) {
 		FootballClub removedClub = null;
 		for (int i = 0; i < footballClubs.size(); i++) {
-			if (footballClubs.get(i).getClubName().equals(clubName)) {
+			if (footballClubs.get(i).getClubName().equalsIgnoreCase(clubName)) {
 				removedClub = footballClubs.remove(i);
 				break;
 			}

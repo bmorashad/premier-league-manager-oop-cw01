@@ -70,7 +70,7 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
 	}
 	@Override
     public boolean equals(Object club) {
-        return this.clubName.equals(((FootballClub)club).clubName);
+        return this.clubName.equalsIgnoreCase(((FootballClub)club).clubName);
     }
 
 	@Override

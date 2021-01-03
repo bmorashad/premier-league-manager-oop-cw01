@@ -219,7 +219,7 @@ public class StartLeagueManagerMenu {
 		try {
 			String teamA = getAvailableClubName("Enter Home team: ");
 			String teamB  = getAvailableClubName("Enter Away team: ");
-			if(teamA.equals(teamB)) {
+			if(teamA.equalsIgnoreCase(teamB)) {
 				System.out.println("Given teams can not be opponent :(");
 				return;
 			}
