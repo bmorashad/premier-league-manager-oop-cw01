@@ -1,6 +1,6 @@
 #!/bin/bash
 javac -sourcepath ./ -d out -classpath out cli/StartLeagueManagerMenu.java
-env CLASSPATH=out java cli/StartLeagueManagerMenu
+java -cp cli/StartLeagueManagerMenu
 
 # rm -rf domain/model/*.class
 # rm -rf domain/custom/exception/*.class
